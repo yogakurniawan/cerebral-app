@@ -29,9 +29,14 @@ export default class Login extends Component {
         <h1>Login</h1>
         {!user &&
         <div>
-          <form className="login-form form-inline" onSubmit={this.handleSubmit}>
+          <form className="login-form" onSubmit={this.handleSubmit}>
             <div className="form-group">
-              <input type="text" ref="username" placeholder="Enter a username" className="form-control"/>
+              <label htmlFor="login-username">Username</label>
+              <input type="text" ref="username" id="login-username" placeholder="Enter a username" className="form-control"/>
+            </div>
+            <div className="form-group">
+              <label htmlFor="login-password">Password</label>
+              <input type="password" ref="password" id="login-password" placeholder="Password" className="form-control"/>
             </div>
             <button className="btn btn-success" onClick={this.handleSubmit}><i className="fa fa-sign-in"/>{' '}Log In
             </button>
