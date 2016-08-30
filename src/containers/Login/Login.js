@@ -27,14 +27,14 @@ export default class Login extends Component {
       <div className={styles.loginPage + ' container'}>
         <Helmet title="Login"/>
         {!user &&
-        <div>
+        <div className="row">
           <form className="login-form" onSubmit={this.handleSubmit}>
             <h2>Login</h2>
-            <div className="input-group">
+            <div className={'input-group ' + styles.topBottomBuffer}>
               <span className="input-group-addon" id="username-addon"><i className={'fa fa-at ' + styles.faAt} /></span>
               <input aria-describedby="username-addon" type="text" ref="username" id="login-username" placeholder="Username" className="form-control"/>
             </div>
-            <div className="input-group">
+            <div className={'input-group ' + styles.topBottomBuffer}>
               <span className="input-group-addon" id="password-addon"><i className={'fa fa-lock ' + styles.faLock} /></span>
               <input aria-describedby="password-addon" type="text" ref="password" id="login-password" placeholder="Password" className="form-control"/>
             </div>
