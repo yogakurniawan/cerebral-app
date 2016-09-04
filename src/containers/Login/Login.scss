@@ -1,6 +1,4 @@
 .loginPage {
-  margin-top: 180px;
-  margin-bottom: 180px;
   form {
     max-width: 380px;
     padding: 15px 35px 45px;
@@ -8,12 +6,34 @@
     background-color: #fff;
     border: 1px solid rgba(0,0,0,0.1);
     box-shadow: 
-        0px 0px 0px 5px rgba( 255,255,255,0.4 ), 
+        0px 0px 0px 0px rgba( 255,255,255,0.4 ), 
         0px 4px 20px rgba( 0,0,0,0.33 );
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
     border-radius: 5px;
   }
+
+  .appLogo {
+    background: #6FB3D2;
+    width: 150px;
+    height: 150px;
+    padding: 30px 30px;
+    border-top-right-radius: 100%;
+    border-top-left-radius: 100%;
+    border-bottom-left-radius: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    border-bottom-right-radius: 100%;
+    margin: 10px auto 25px;
+    box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0.4), 0px 4px 20px rgba(0, 0, 0, 0.33);
+    img {
+      display: block;
+      width: 100%;
+    }      
+  }
+
+  .formTitle {
+    margin-bottom: 40px;
+  }
+
   .faAt {
     font-size: 0.9em;
   }

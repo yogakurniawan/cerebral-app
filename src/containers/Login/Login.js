@@ -23,13 +23,21 @@ export default class Login extends Component {
   render() {
     const {user, logout} = this.props;
     const styles = require('./Login.scss');
+    const appLogo = require('./AppLogo.png');
     return (
       <div className={styles.loginPage + ' container'}>
         <Helmet title="Login"/>
         {!user &&
+        <div className={styles.formTitle + ' row'}>
+          <div className="text-center">
+            <h1>iWareHouse</h1>
+          </div>
+        </div>}
+
+        {!user &&
         <div className="row">
           <form className="login-form" onSubmit={this.handleSubmit}>
-            <h2>Login</h2>
+            <div className={styles.appLogo}><img src={appLogo} /></div>
             <div className={'input-group ' + styles.topBottomBuffer}>
               <span className="input-group-addon" id="username-addon"><i className={'fa fa-at ' + styles.faAt} /></span>
               <input aria-describedby="username-addon" type="text" ref="username" id="login-username" placeholder="Username" className="form-control"/>
@@ -38,7 +46,7 @@ export default class Login extends Component {
               <span className="input-group-addon" id="password-addon"><i className={'fa fa-lock ' + styles.faLock} /></span>
               <input aria-describedby="password-addon" type="text" ref="password" id="login-password" placeholder="Password" className="form-control"/>
             </div>
-            <button className="btn btn-success" onClick={this.handleSubmit}><i className="fa fa-sign-in"/>{' '}Log In
+            <button className="btn-block btn btn-success" onClick={this.handleSubmit}><i className="fa fa-sign-in"/>{' '}SIGN IN TO YOUR ACCOUNT
             </button>
           </form>
         </div>
