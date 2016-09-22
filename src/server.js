@@ -89,20 +89,25 @@ app.use((req, res) => {
       res.status(500);
       hydrateOnClient();
     } else if (renderProps) {
-      loadOnServer({...renderProps, store, helpers: {client}}).then(() => {
-        const component = (
-          <Provider store={store} key="provider">
-            <ReduxAsyncConnect {...renderProps} />
-          </Provider>
-        );
+      const notFound = renderProps.routes.filter((r) => (r.path === '*' && r.status === 404));
+      if (notFound.length > 0) {
+        res.status(404).send('Not found');
+      } else {
+        loadOnServer({...renderProps, store, helpers: {client}}).then(() => {
+          const component = (
+            <Provider store={store} key="provider">
+              <ReduxAsyncConnect {...renderProps} />
+            </Provider>
+          );
 
-        res.status(200);
+          res.status(200);
 
-        global.navigator = {userAgent: req.headers['user-agent']};
+          global.navigator = {userAgent: req.headers['user-agent']};
 
-        res.send('<!doctype html>\n' +
-          ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store}/>));
-      });
+          res.send('<!doctype html>\n' +
+            ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store}/>));
+        });
+      }
     } else {
       res.status(404).send('Not found');
     }

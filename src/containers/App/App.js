@@ -27,9 +27,7 @@ import { asyncConnect } from 'redux-async-connect';
     return Promise.all(promises);
   }
 }])
-@connect(
-  state => ({user: state.auth.user}),
-  {logout, pushState: push})
+@connect(state => ({user: state.auth.user}), {logout, pushState: push})
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
