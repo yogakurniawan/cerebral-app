@@ -16,8 +16,10 @@ export default class Login extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const input = this.refs.username;
-    this.props.login(input.value);
+    const password = this.refs.password;
+    this.props.login(input.value, password.value);
     input.value = '';
+    password.value = '';
   }
 
   render() {
@@ -44,7 +46,7 @@ export default class Login extends Component {
             </div>
             <div className={'input-group ' + styles.topBottomBuffer}>
               <span className="input-group-addon" id="password-addon"><i className={'fa fa-lock ' + styles.faLock} /></span>
-              <input aria-describedby="password-addon" type="text" ref="password" id="login-password" placeholder="Password" className="form-control"/>
+              <input aria-describedby="password-addon" type="password" ref="password" id="login-password" placeholder="Password" className="form-control"/>
             </div>
             <button className="btn-block btn btn-success" onClick={this.handleSubmit}><i className="fa fa-sign-in"/>{' '}SIGN IN TO YOUR ACCOUNT
             </button>
