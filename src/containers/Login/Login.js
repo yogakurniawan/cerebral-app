@@ -17,7 +17,14 @@ export default class Login extends Component {
     event.preventDefault();
     const input = this.refs.username;
     const password = this.refs.password;
-    this.props.login(input.value, password.value);
+    const promise = this.props.login(input.value, password.value);
+    promise
+      .then(login => {
+        console.log(login);
+      })
+      .catch(error => {
+        console.log(error);
+      });
     input.value = '';
     password.value = '';
   }

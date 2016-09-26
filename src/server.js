@@ -19,13 +19,13 @@ import createHistory from 'react-router/lib/createMemoryHistory';
 import {Provider} from 'react-redux';
 import getRoutes from './routes';
 
-const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort;
+const loopbackUrl = 'http://' + config.apiHost + ':9000/api';
 const pretty = new PrettyError();
 const app = new Express();
 const server = new http.Server(app);
 const proxy = httpProxy.createProxyServer({
-  target: targetUrl,
-  ws: true
+  target: loopbackUrl,
+  changeOrigin: true
 });
 
 app.use(compression());
@@ -35,11 +35,11 @@ app.use(Express.static(path.join(__dirname, '..', 'static')));
 
 // Proxy to API server
 app.use('/api', (req, res) => {
-  proxy.web(req, res, {target: targetUrl});
+  proxy.web(req, res, {target: loopbackUrl});
 });
 
 app.use('/ws', (req, res) => {
-  proxy.web(req, res, {target: targetUrl + '/ws'});
+  proxy.web(req, res, {target: loopbackUrl + '/ws'});
 });
 
 server.on('upgrade', (req, socket, head) => {
