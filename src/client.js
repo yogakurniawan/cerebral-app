@@ -27,6 +27,9 @@ function initSocket() {
     console.log(data);
     socket.emit('my other event', { my: 'data from client' });
   });
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+  });
   socket.on('msg', (data) => {
     console.log(data);
   });
