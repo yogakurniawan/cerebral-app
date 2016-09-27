@@ -12,7 +12,8 @@ import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect } from 'redux-async-connect';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
-
+import throttle from 'lodash/throttle';
+import {saveState, loadState} from 'utils/localStorage';
 import getRoutes from './routes';
 
 const client = new ApiClient();
@@ -21,8 +22,20 @@ const dest = document.getElementById('content');
 const store = createStore(_browserHistory, client, window.__data);
 const history = syncHistoryWithStore(_browserHistory, store);
 
+// subscribe to store
+store.subscribe(throttle(() => {
+  saveState({
+    state: {
+      loginInfo: store.getState().auth.user
+    }
+  });
+  console.log(loadState());
+  console.log(store.getState().auth.user);
+}, 1000));
+
+
 function initSocket() {
-  const socket = io('', {path: '/ws'});
+  const socket = io('', { path: '/ws' });
   socket.on('news', (data) => {
     console.log(data);
     socket.emit('my other event', { my: 'data from client' });
@@ -41,9 +54,9 @@ global.socket = initSocket();
 
 const component = (
   <Router render={(props) =>
-        <ReduxAsyncConnect {...props} helpers={{client}} filter={item => !item.deferred} />
-      } history={history}>
-    {getRoutes(store)}
+    <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />
+  } history={history}>
+    {getRoutes(store) }
   </Router>
 );
 
