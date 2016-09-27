@@ -83,7 +83,8 @@ export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     promise: () => {
-      return Promise.resolve(loadState());
+      const auth = loadState() && loadState().auth;
+      return Promise.resolve(auth ? auth.user : null);
     }
   };
 }
