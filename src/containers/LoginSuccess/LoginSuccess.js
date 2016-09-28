@@ -9,11 +9,12 @@ export default
 class LoginSuccess extends Component {
   static propTypes = {
     user: PropTypes.object,
-    logout: PropTypes.func
+    logout: PropTypes.func,
+    getLookup: PropTypes.func
   }
 
   render() {
-    const {user, logout} = this.props;
+    const {user, logout, getLookup} = this.props;
     return (user &&
       <div className="container">
         <h1>Login Success</h1>
@@ -30,6 +31,7 @@ class LoginSuccess extends Component {
 
           <div>
             <button className="btn btn-danger" onClick={logout}><i className="fa fa-sign-out"/>{' '}Log Out</button>
+            <button className="btn btn-danger" onClick={getLookup}><i className="fa fa-sign-out"/>{' '}Lookup</button>
           </div>
         </div>
       </div>

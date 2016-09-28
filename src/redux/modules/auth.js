@@ -1,5 +1,3 @@
-import {loadState} from 'utils/localStorage';
-
 const LOAD = 'redux-example/auth/LOAD';
 const LOAD_SUCCESS = 'redux-example/auth/LOAD_SUCCESS';
 const LOAD_FAIL = 'redux-example/auth/LOAD_FAIL';
@@ -9,6 +7,9 @@ const LOGIN_FAIL = 'redux-example/auth/LOGIN_FAIL';
 const LOGOUT = 'redux-example/auth/LOGOUT';
 const LOGOUT_SUCCESS = 'redux-example/auth/LOGOUT_SUCCESS';
 const LOGOUT_FAIL = 'redux-example/auth/LOGOUT_FAIL';
+const LOOKUP = 'redux-example/auth/LOOKUP';
+const LOOKUP_SUCCESS = 'redux-example/auth/LOOKUP_SUCCESS';
+const LOOKUP_FAIL = 'redux-example/auth/LOOKUP_FAIL';
 
 const initialState = {
   loaded: false
@@ -70,6 +71,25 @@ export default function reducer(state = initialState, action = {}) {
         loggingOut: false,
         logoutError: action.error
       };
+    case LOOKUP:
+      return {
+        ...state,
+        loading: true
+      };
+    case LOOKUP_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        lookup: action.result
+      };
+    case LOOKUP_FAIL:
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error: action.error
+      };
     default:
       return state;
   }
@@ -82,10 +102,11 @@ export function isLoaded(globalState) {
 export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: () => {
-      const auth = loadState() && loadState().auth;
-      return Promise.resolve(auth ? auth.user : null);
-    }
+    promise: (client) => client.get('/loadAuth', {
+      params: {
+        helo: 'hello'
+      }
+    })
   };
 }
 
@@ -105,5 +126,16 @@ export function logout() {
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
     promise: (client) => client.get('/logout')
+  };
+}
+
+export function getLookup() {
+  return {
+    types: [LOOKUP, LOOKUP_SUCCESS, LOOKUP_FAIL],
+    promise: (client) => client.get('/lookups', {
+      params: {
+        helo: 'hello'
+      }
+    })
   };
 }
