@@ -102,11 +102,7 @@ export function isLoaded(globalState) {
 export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: (client) => client.get('/loadAuth', {
-      params: {
-        helo: 'hello'
-      }
-    })
+    promise: (client) => client.get('/loadAuth')
   };
 }
 
@@ -132,10 +128,6 @@ export function logout() {
 export function getLookup() {
   return {
     types: [LOOKUP, LOOKUP_SUCCESS, LOOKUP_FAIL],
-    promise: (client) => client.get('/lookups', {
-      params: {
-        helo: 'hello'
-      }
-    })
+    promise: (client) => client.get('/lookups')
   };
 }

@@ -1,6 +1,6 @@
 import superagent from 'superagent';
 import config from '../config';
-// import { loadState } from 'utils/localStorage';
+import { loadState } from 'utils/localStorage';
 
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 
@@ -19,9 +19,14 @@ export default class ApiClient {
     methods.forEach((method) =>
       this[method] = (path, { params, data } = {}) => new Promise((resolve, reject) => {
         const request = superagent[method](formatUrl(path));
-        console.log({...params, access_token: 'persistedState.auth.user.id'});
+        const persistedState = loadState();
+
         if (params) {
           request.query(params);
+        }
+
+        if (!params && persistedState && persistedState.auth.user) {
+          request.query({access_token: persistedState.auth.user.id});
         }
 
         if (__SERVER__ && req.get('cookie')) {

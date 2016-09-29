@@ -5,6 +5,7 @@ import config from './config';
 import favicon from 'serve-favicon';
 import compression from 'compression';
 import httpProxy from 'http-proxy';
+import cookieParser from 'cookie-parser';
 import path from 'path';
 import createStore from './redux/create';
 import ApiClient from './helpers/ApiClient';
@@ -44,7 +45,7 @@ app.use('/api', (req, res) => {
 app.use('/ws', (req, res) => {
   proxy.web(req, res, {target: loopbackSocketUrl});
 });
-
+app.use(cookieParser());
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
 proxy.on('error', (error, req, res) => {
