@@ -30,13 +30,21 @@ export default (store) => {
     }
   };
 
+  const checkAuth = (nextState, replace, cb) => {
+    if (!isAuthLoaded(store.getState())) {
+      store.dispatch(loadAuth()).then(cb);
+    } else {
+      cb();
+    }
+  };
+
   /**
    * Please keep routes in alphabetical order
    */
   return (
     <Route path="/" component={App}>
       { /* Home (main) route */ }
-      <IndexRoute component={Login}/>
+      <IndexRoute onEnter={checkAuth} component={Login}/>
 
       { /* Routes requiring login */ }
       <Route onEnter={requireLogin}>
