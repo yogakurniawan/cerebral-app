@@ -20,13 +20,17 @@ export default class ApiClient {
       this[method] = (path, { params, data } = {}) => new Promise((resolve, reject) => {
         const request = superagent[method](formatUrl(path));
         const persistedState = loadState();
-
+        const cookies = req && req.cookies;
         if (params) {
           request.query(params);
         }
 
         if (!params && persistedState && persistedState.auth.user) {
           request.query({access_token: persistedState.auth.user.id});
+        }
+
+        if (!params && cookies) {
+          request.query({access_token: cookies.token});
         }
 
         if (__SERVER__ && req.get('cookie')) {

@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 import * as authActions from 'redux/modules/auth';
+import Cookie from 'js-cookie';
 
 @connect(
   state => ({user: state.auth.user}),
@@ -21,6 +22,7 @@ export default class Login extends Component {
     promise
       .then(login => {
         console.log(login);
+        Cookie.set('token', login.id);
       })
       .catch(error => {
         console.log(error);
