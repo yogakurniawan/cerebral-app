@@ -39,11 +39,11 @@ app.use(Express.static(path.join(__dirname, '..', 'static')));
 
 // Proxy to API server
 app.use('/api', (req, res) => {
-  proxy.web(req, res, {target: loopbackApiUrl});
+  proxy.web(req, res, { target: loopbackApiUrl });
 });
 
 app.use('/ws', (req, res) => {
-  proxy.web(req, res, {target: loopbackSocketUrl});
+  proxy.web(req, res, { target: loopbackSocketUrl });
 });
 app.use(cookieParser());
 
@@ -54,10 +54,10 @@ proxy.on('error', (error, req, res) => {
     console.error('proxy error', error);
   }
   if (!res.headersSent) {
-    res.writeHead(500, {'content-type': 'application/json'});
+    res.writeHead(500, { 'content-type': 'application/json' });
   }
 
-  json = {error: 'proxy_error', reason: error.message};
+  json = { error: 'proxy_error', reason: error.message };
   res.end(JSON.stringify(json));
 });
 
@@ -71,10 +71,12 @@ app.use((req, res) => {
   const memoryHistory = createHistory(req.originalUrl);
   const store = createStore(memoryHistory, client);
   const history = syncHistoryWithStore(memoryHistory, store);
+  const token = req.cookies && req.cookies.token;
+
 
   function hydrateOnClient() {
     res.send('<!doctype html>\n' +
-      ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store}/>));
+      ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets() } store={store}/>));
   }
 
   if (__DISABLE_SSR__) {
@@ -82,7 +84,7 @@ app.use((req, res) => {
     return;
   }
 
-  match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
+  match({ history, routes: getRoutes(store, token), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(redirectLocation.pathname + redirectLocation.search);
     } else if (error) {
@@ -90,25 +92,24 @@ app.use((req, res) => {
       res.status(500);
       hydrateOnClient();
     } else if (renderProps) {
-      const notFound = renderProps.routes.filter((r) => (r.path === '*' && r.status === 404));
-      if (notFound.length > 0) {
-        res.status(404).send('Not found');
-      } else {
-        loadOnServer({...renderProps, store, helpers: {client}}).then(() => {
-          const component = (
-            <Provider store={store} key="provider">
-              <ReduxAsyncConnect {...renderProps} />
-            </Provider>
-          );
-
+      const notFound = renderProps.routes.filter((route) => (route.path === '*' && route.status === 404));
+      loadOnServer({...renderProps, store, helpers: { client }}).then(() => {
+        const component = (
+          <Provider store={store} key="provider">
+            <ReduxAsyncConnect {...renderProps} />
+          </Provider>
+        );
+        if (notFound.length > 0) {
+          res.status(404);
+        } else {
           res.status(200);
+        }
 
-          global.navigator = {userAgent: req.headers['user-agent']};
+        global.navigator = { userAgent: req.headers['user-agent'] };
 
-          res.send('<!doctype html>\n' +
-            ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store}/>));
-        });
-      }
+        res.send('<!doctype html>\n' +
+          ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets() } component={component} store={store}/>));
+      });
     } else {
       res.status(404).send('Not found');
     }

@@ -1,18 +1,17 @@
 import React from 'react';
-import {IndexRoute, Route} from 'react-router';
+import {IndexRedirect, Route} from 'react-router';
 import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth';
 import {
     App,
     Chat,
     Widgets,
-    About,
     Login,
     LoginSuccess,
     Survey,
     NotFound,
   } from 'containers';
 
-export default (store) => {
+export default (store, token) => {
   const requireLogin = (nextState, replace, cb) => {
     function checkAuth() {
       const { auth: { user }} = store.getState();
@@ -23,18 +22,10 @@ export default (store) => {
       cb();
     }
 
-    if (!isAuthLoaded(store.getState())) {
+    if (!isAuthLoaded(store.getState()) && token) {
       store.dispatch(loadAuth()).then(checkAuth);
     } else {
       checkAuth();
-    }
-  };
-
-  const checkAuth = (nextState, replace, cb) => {
-    if (!isAuthLoaded(store.getState())) {
-      store.dispatch(loadAuth()).then(cb);
-    } else {
-      cb();
     }
   };
 
@@ -44,7 +35,7 @@ export default (store) => {
   return (
     <Route path="/" component={App}>
       { /* Home (main) route */ }
-      <IndexRoute onEnter={checkAuth} component={Login}/>
+      <IndexRedirect to="login"/>
 
       { /* Routes requiring login */ }
       <Route onEnter={requireLogin}>
@@ -53,7 +44,7 @@ export default (store) => {
       </Route>
 
       { /* Routes */ }
-      <Route path="about" component={About}/>
+      <Route path="login" component={Login}/>
       <Route path="survey" component={Survey}/>
       <Route path="widgets" component={Widgets}/>
 
