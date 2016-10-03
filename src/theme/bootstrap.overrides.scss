@@ -10,17 +10,17 @@
 }
 
 .navbar {
-  min-height: 55px;
+  min-height: 53px;
 }
 
 .navbar-default {
   .navbar-nav {
     > li:hover, .active {
       > a, a:hover, a:focus {
-        color: #9c27b0;
+        color: $brand-primary;
         background-color: transparent;
       }
-      border-bottom: solid 3px #9c27b0;
+      border-bottom: solid 3px $brand-primary;
     }
   }
 }

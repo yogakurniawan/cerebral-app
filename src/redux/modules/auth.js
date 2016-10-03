@@ -1,3 +1,5 @@
+import Cookie from 'js-cookie';
+
 const LOAD = 'redux-example/auth/LOAD';
 const LOAD_SUCCESS = 'redux-example/auth/LOAD_SUCCESS';
 const LOAD_FAIL = 'redux-example/auth/LOAD_FAIL';
@@ -121,7 +123,12 @@ export function login(username, password) {
 export function logout() {
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
-    promise: (client) => client.get('/logout')
+    promise: () => {
+      return new Promise((resolve) => {
+        Cookie.remove('token');
+        return resolve(null);
+      });
+    }
   };
 }
 

@@ -38,8 +38,10 @@ export default class Login extends Component {
     const styles = require('./Login.scss');
     const appLogo = require('./AppLogo.png');
     let loggingInClassName = 'fa fa-sign-in';
+    let loginButtonText = 'SIGN IN TO YOUR ACCOUNT';
     if (loggingIn) {
       loggingInClassName += 'fa fa-spinner fa-spin';
+      loginButtonText = 'SIGNING IN...';
     }
     return (
       <div className={styles.loginPage + ' container'}>
@@ -63,8 +65,8 @@ export default class Login extends Component {
               <span className="input-group-addon" id="password-addon"><i className={'fa fa-lock ' + styles.faLock} /></span>
               <input aria-describedby="password-addon" type="password" ref="password" id="login-password" placeholder="Password" className="form-control"/>
             </div>
-            <button disabled={loggingIn} className="btn-block btn btn-success" onClick={this.handleSubmit}>
-              <i className={loggingInClassName}/>{' '}SIGN IN TO YOUR ACCOUNT
+            <button disabled={loggingIn} className="btn-block btn btn-primary" onClick={this.handleSubmit}>
+              <i className={loggingInClassName}/>{' '}{loginButtonText}
             </button>
           </form>
         </div>
