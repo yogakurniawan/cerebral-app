@@ -5,13 +5,17 @@ import * as authActions from 'redux/modules/auth';
 import Cookie from 'js-cookie';
 
 @connect(
-  state => ({user: state.auth.user}),
+  state => ({
+    user: state.auth.user,
+    loggingIn: state.auth.loggingIn
+  }),
   authActions)
 export default class Login extends Component {
   static propTypes = {
     user: PropTypes.object,
     login: PropTypes.func,
-    logout: PropTypes.func
+    logout: PropTypes.func,
+    loggingIn: PropTypes.bool
   }
 
   handleSubmit = (event) => {
@@ -27,14 +31,16 @@ export default class Login extends Component {
       .catch(error => {
         console.log(error);
       });
-    input.value = '';
-    password.value = '';
   }
 
   render() {
-    const {user, logout} = this.props;
+    const {user, logout, loggingIn} = this.props;
     const styles = require('./Login.scss');
     const appLogo = require('./AppLogo.png');
+    let loggingInClassName = 'fa fa-sign-in';
+    if (loggingIn) {
+      loggingInClassName += 'fa fa-spinner fa-spin';
+    }
     return (
       <div className={styles.loginPage + ' container'}>
         <Helmet title="Login"/>
@@ -57,7 +63,8 @@ export default class Login extends Component {
               <span className="input-group-addon" id="password-addon"><i className={'fa fa-lock ' + styles.faLock} /></span>
               <input aria-describedby="password-addon" type="password" ref="password" id="login-password" placeholder="Password" className="form-control"/>
             </div>
-            <button className="btn-block btn btn-success" onClick={this.handleSubmit}><i className="fa fa-sign-in"/>{' '}SIGN IN TO YOUR ACCOUNT
+            <button disabled={loggingIn} className="btn-block btn btn-success" onClick={this.handleSubmit}>
+              <i className={loggingInClassName}/>{' '}SIGN IN TO YOUR ACCOUNT
             </button>
           </form>
         </div>
