@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 import * as authActions from 'redux/modules/auth';
 import Cookie from 'js-cookie';
+import NotificationSystem from 'react-notification-system';
 
 @connect(
   state => ({
@@ -22,6 +23,7 @@ export default class Login extends Component {
     event.preventDefault();
     const input = this.refs.username;
     const password = this.refs.password;
+    const notification = this.refs.notificationSystem;
     const promise = this.props.login(input.value, password.value);
     promise
       .then(login => {
@@ -30,6 +32,11 @@ export default class Login extends Component {
       })
       .catch(error => {
         console.log(error);
+        notification.addNotification({
+          message: 'Invalid Email or Password',
+          level: 'error',
+          position: 'tc'
+        });
       });
   }
 
@@ -46,6 +53,7 @@ export default class Login extends Component {
     return (
       <div className={styles.loginPage + ' container'}>
         <Helmet title="Login"/>
+        <NotificationSystem ref="notificationSystem" />
         {!user &&
         <div className={styles.formTitle + ' row'}>
           <div className="text-center">
