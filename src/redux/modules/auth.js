@@ -47,12 +47,14 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loggingIn: false,
-        user: action.result
+        user: action.result.userDetail,
+        loginInfo: action.result
       };
     case LOGIN_FAIL:
       return {
         ...state,
         loggingIn: false,
+        loginInfo: null,
         user: null,
         loginError: action.error
       };
@@ -65,7 +67,8 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loggingOut: false,
-        user: null
+        user: null,
+        loginInfo: null
       };
     case LOGOUT_FAIL:
       return {
@@ -123,11 +126,15 @@ export function login(username, password) {
 export function logout() {
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
-    promise: () => {
-      return new Promise((resolve) => {
+    promise: (client) => {
+      return client.post('users/logout', {
+        params: {
+          access_token: Cookie.get('token')
+        }
+      }).then(new Promise((resolve) => {
         Cookie.remove('token');
         return resolve(null);
-      });
+      }));
     }
   };
 }

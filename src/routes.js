@@ -6,6 +6,7 @@ import {
     Chat,
     Widgets,
     Login,
+    Home,
     LoginSuccess,
     Survey,
     NotFound,
@@ -40,6 +41,7 @@ export default (store, token) => {
       { /* Routes requiring login */ }
       <Route onEnter={requireLogin}>
         <Route path="chat" component={Chat}/>
+        <Route path="home" component={Home}/>
         <Route path="loginSuccess" component={LoginSuccess}/>
       </Route>
 

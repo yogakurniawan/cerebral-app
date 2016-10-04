@@ -26,7 +26,8 @@ const history = syncHistoryWithStore(_browserHistory, store);
 store.subscribe(throttle(() => {
   saveState({
     auth: {
-      user: store.getState().auth.user
+      user: store.getState().auth.user,
+      loginInfo: store.getState().auth.loginInfo
     }
   });
   console.log(loadState());

@@ -25,8 +25,8 @@ export default class ApiClient {
           request.query(params);
         }
 
-        if (!params && persistedState && persistedState.auth.user) {
-          request.query({access_token: persistedState.auth.user.id});
+        if (!params && persistedState && persistedState.auth.loginInfo) {
+          request.query({access_token: persistedState.auth.loginInfo.id});
         }
 
         if (!params && cookies) {
