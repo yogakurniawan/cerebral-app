@@ -53,6 +53,11 @@ export default class App extends Component {
   render() {
     const {user} = this.props;
     const styles = require('./App.scss');
+    const facebookLogo = require('./facebook.svg');
+    const githubLogo = require('./github.svg');
+    const instagramLogo = require('./instagram.svg');
+    const linkedinLogo = require('./linkedin.svg');
+    const twitterLogo = require('./twitter.svg');
 
     return (
       <div className={styles.app}>
@@ -88,7 +93,16 @@ export default class App extends Component {
         </div>
         <footer className="footer">
           <div className="container">
-            <p className="text-muted">Place sticky footer content here.</p>
+            <div className="row text-center">
+              <a target="_blank" href="https://www.facebook.com/yogakurniawan"><img className={styles.socialLogo} src={facebookLogo}/></a>
+              <a target="_blank" href="https://www.github.com/yogakurniawan"><img className={styles.socialLogo} src={githubLogo}/></a>
+              <a target="_blank" href="https://www.instagram.com/yogakurniawan/"><img className={styles.socialLogo} src={instagramLogo}/></a>
+              <a target="_blank" href="https://www.twitter.com/yogkurniawan"><img className={styles.socialLogo} src={twitterLogo}/></a>
+              <a target="_blank" href="https://www.linkedin.com/in/yogakurniawan"><img className={styles.socialLogo} src={linkedinLogo}/></a>
+            </div>
+            <div className="row text-center">
+              <p>© 2016 Yoga Kurniawan. Made with <i className={styles.red + ' fa fa-heart'} aria-hidden="true"></i> and passion</p>
+            </div>
           </div>
         </footer>
       </div>
