@@ -18,6 +18,7 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action = {}) {
+  const {result, error} = action;
   switch (action.type) {
     case LOAD:
       return {
@@ -29,14 +30,14 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        user: action.result.currentUser
+        user: result.currentUser
       };
     case LOAD_FAIL:
       return {
         ...state,
         loading: false,
         loaded: false,
-        error: action.error
+        error: error
       };
     case LOGIN:
       return {
@@ -48,7 +49,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loggingIn: false,
         user: action.result.userDetail,
-        loginInfo: action.result
+        loginInfo: result
       };
     case LOGIN_FAIL:
       return {
@@ -56,7 +57,7 @@ export default function reducer(state = initialState, action = {}) {
         loggingIn: false,
         loginInfo: null,
         user: null,
-        loginError: action.error
+        loginError: error
       };
     case LOGOUT:
       return {
@@ -74,7 +75,7 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loggingOut: false,
-        logoutError: action.error
+        logoutError: error
       };
     case LOOKUP:
       return {
@@ -86,14 +87,14 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        lookup: action.result
+        lookup: result
       };
     case LOOKUP_FAIL:
       return {
         ...state,
         loading: false,
         loaded: false,
-        error: action.error
+        error: error
       };
     default:
       return state;
