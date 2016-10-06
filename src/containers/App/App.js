@@ -10,12 +10,14 @@ import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/module
 import { push } from 'react-router-redux';
 import config from '../../config';
 import { asyncConnect } from 'redux-async-connect';
+import Cookie from 'js-cookie';
 
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
     const promises = [];
+    const token = Cookie.get('token');
 
-    if (!isAuthLoaded(getState())) {
+    if (!isAuthLoaded(getState()) && token) {
       promises.push(dispatch(loadAuth()));
     }
 
