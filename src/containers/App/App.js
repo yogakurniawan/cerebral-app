@@ -101,7 +101,7 @@ export default class App extends Component {
               <a target="_blank" href="https://www.linkedin.com/in/yogakurniawan"><img className={styles.socialLogo} src={linkedinLogo}/></a>
             </div>
             <div className="row text-center">
-              <p>© 2016 Yoga Kurniawan. Made with <i className={styles.red + ' fa fa-heart'} aria-hidden="true"></i> and passion</p>
+              <p><i className={styles.strong + ' fa fa-code'} aria-hidden="true"></i> with <i className={styles.red + ' fa fa-heart'} aria-hidden="true"></i> by <strong>Yoga</strong></p>
             </div>
           </div>
         </footer>

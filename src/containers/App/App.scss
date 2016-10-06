@@ -26,9 +26,14 @@
   .red {
     color: #F74933;
   }
+
+  .strong {
+    font-weight: bold;
+  }
 }
 
 .appContent {
+  padding-top: 30px;
   margin: 30px 0; // for fixed navbar
 }
 

@@ -7,6 +7,7 @@ import {
     Widgets,
     Login,
     Home,
+    TodoList,
     LoginSuccess,
     Survey,
     NotFound,
@@ -41,6 +42,7 @@ export default (store, token) => {
       { /* Routes requiring login */ }
       <Route onEnter={requireLogin}>
         <Route path="chat" component={Chat}/>
+        <Route path="todo" component={TodoList}/>
         <Route path="home" component={Home}/>
         <Route path="loginSuccess" component={LoginSuccess}/>
       </Route>

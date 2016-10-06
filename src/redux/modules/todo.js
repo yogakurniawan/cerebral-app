@@ -28,8 +28,8 @@ export default function reducer(state = [], action) {
   switch (action.type) {
     case ADD_TODO:
       return [
-        ...state,
-        todo(undefined, action)
+        todo(undefined, action),
+        ...state
       ];
     case TOGGLE_TODO:
       return state.map(td =>
@@ -40,9 +40,10 @@ export default function reducer(state = [], action) {
   }
 }
 
-export function addTodo(text) {
+export function addTodo(id, text) {
   return {
     type: ADD_TODO,
+    id,
     text
   };
 }
