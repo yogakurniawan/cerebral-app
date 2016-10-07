@@ -9,7 +9,7 @@ export default class TodoList extends Component {
       text: PropTypes.string.isRequired
     }).isRequired).isRequired,
     onTodoClick: PropTypes.func.isRequired
-  }
+  };
 
   render() {
     const {todos, onTodoClick} = this.props;

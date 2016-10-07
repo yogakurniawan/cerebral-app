@@ -1,11 +1,23 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as todoActions from 'redux/modules/todo';
+import TodoList from 'components/TodoList/TodoList';
 
-@connect(undefined, todoActions)
-export default class TodoList extends Component {
+@connect(state => ({
+  todos: state.todo
+}), todoActions)
+export default class TodoListApp extends Component {
   static propTypes = {
-    addTodo: PropTypes.func
+    addTodo: PropTypes.func,
+    todos: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      completed: PropTypes.bool.isRequired,
+      text: PropTypes.string.isRequired
+    }).isRequired).isRequired
+  }
+
+  onTodoClick = () => {
+    return;
   }
 
   handleSubmit = (event) => {
@@ -19,16 +31,31 @@ export default class TodoList extends Component {
   };
 
   render() {
+    const buttonStyle = {
+      margin: '10px auto'
+    };
+    const formStyle = {
+      maxWidth: '50%',
+      margin: '0 auto'
+    };
+    const inputStyle = {
+      margin: '0 auto',
+      width: '50%'
+    };
+    const {todos} = this.props;
     return (
       <div className="container">
-        <div className="row">
-          <h1>Login Success</h1>
-          <form onSubmit={this.handleSubmit}>
-            <input aria-describedby="todo-text-addon" type="text" ref="todoText" id="login-username" placeholder="Todo" className="form-control"/>
-            <button type="submit">
+        <div className="row text-center">
+          <h1>ToDo List Example from Dan Abramov</h1>
+          <form style={formStyle} onSubmit={this.handleSubmit}>
+            <input style={inputStyle} aria-describedby="todo-text-addon" type="text" ref="todoText" id="login-username" placeholder="Todo" className="form-control"/>
+            <button type="submit" style={buttonStyle} className="btn btn-primary">
               Add Todo
             </button>
           </form>
+        </div>
+        <div className="row">
+          <TodoList todos={todos} onTodoClick={this.onTodoClick}/>
         </div>
       </div>
     );
