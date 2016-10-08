@@ -19,18 +19,19 @@
   padding-top: 12px;
 }
 
-.navbar {
-  min-height: 53px;
-}
-
 .navbar-default {
   .navbar-nav {
     > li:hover, .active {
       > a, a:hover, a:focus {
         color: $brand-primary;
-        background-color: transparent;
+        border-radius: 4px;
+        background-color: rgba(132, 33, 149, 0.09);
       }
-      border-bottom: solid 3px $brand-primary;
     }
   }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
 }

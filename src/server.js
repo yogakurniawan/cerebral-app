@@ -93,6 +93,11 @@ app.use((req, res) => {
       hydrateOnClient();
     } else if (renderProps) {
       const notFound = renderProps.routes.filter((route) => (route.path === '*' && route.status === 404));
+      const pathLogin = renderProps.routes.filter((route) => (route.path === 'login'));
+      if (pathLogin.length > 0) {
+        console.log(renderProps.routes[0].path);
+        res.clearCookie('token');
+      }
       loadOnServer({...renderProps, store, helpers: { client }}).then(() => {
         const component = (
           <Provider store={store} key="provider">

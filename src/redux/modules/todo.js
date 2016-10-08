@@ -1,6 +1,7 @@
 const ADD_TODO = 'ADD_TODO';
 const TOGGLE_TODO = 'TOGGLE_TODO';
 const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
+const SHOW_ALL = 'SHOW_ALL';
 
 const todo = (state = {}, action) => {
   switch (action.type) {
@@ -24,17 +25,36 @@ const todo = (state = {}, action) => {
   }
 };
 
-export default function reducer(state = [], action) {
+const initialState = {
+  todos: [],
+  filter: SHOW_ALL
+};
+
+export default function reducer(state = initialState, action) {
+  let todos;
   switch (action.type) {
     case ADD_TODO:
-      return [
-        todo(undefined, action),
-        ...state
-      ];
+      todos = [todo(undefined, action), ...state.todos];
+      return {
+        ...state,
+        filter: SHOW_ALL,
+        todos
+      };
     case TOGGLE_TODO:
-      return state.map(td =>
+      todos = state.map(td =>
         todo(td, action)
       );
+      return {
+        ...state,
+        filter: SHOW_ALL,
+        todos
+      };
+    case SET_VISIBILITY_FILTER:
+      return {
+        ...state,
+        filter: action.filter,
+        todos: [...state.todos]
+      };
     default:
       return state;
   }

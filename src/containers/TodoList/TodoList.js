@@ -4,7 +4,7 @@ import * as todoActions from 'redux/modules/todo';
 import TodoList from 'components/TodoList/TodoList';
 
 @connect(state => ({
-  todos: state.todo
+  todos: state.todo.todos
 }), todoActions)
 export default class TodoListApp extends Component {
   static propTypes = {
@@ -17,6 +17,7 @@ export default class TodoListApp extends Component {
   }
 
   onTodoClick = () => {
+    console.log('hello');
     return;
   }
 
@@ -55,7 +56,9 @@ export default class TodoListApp extends Component {
           </form>
         </div>
         <div className="row">
-          <TodoList todos={todos} onTodoClick={this.onTodoClick}/>
+          <div style={formStyle}>
+            <TodoList todos={todos} onTodoClick={this.onTodoClick}/>
+          </div>
         </div>
       </div>
     );

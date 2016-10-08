@@ -24,7 +24,7 @@ import Cookie from 'js-cookie';
     return Promise.all(promises);
   }
 }])
-@connect(state => ({user: state.auth.user}), {logout, pushState: push})
+@connect(state => ({ user: state.auth.user }), { logout, pushState: push })
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
@@ -60,6 +60,7 @@ export default class App extends Component {
     const instagramLogo = require('./instagram.svg');
     const linkedinLogo = require('./linkedin.svg');
     const twitterLogo = require('./twitter.svg');
+    // const appLogo = require('./upper-logo.svg');
 
     return (
       <div className={styles.app}>
@@ -67,30 +68,34 @@ export default class App extends Component {
         {user && <Navbar fixedTop>
           <Navbar.Header>
             <Navbar.Brand>
-              <IndexLink to="/" activeStyle={{color: '#33e0ff'}}>
+              <IndexLink to="/">
                 <div className={styles.brand}/>
-                <span>{config.app.title}</span>
               </IndexLink>
             </Navbar.Brand>
             <Navbar.Toggle/>
           </Navbar.Header>
 
           <Navbar.Collapse eventKey={0}>
-            <Nav navbar pullRight>
+            <Nav navbar>
+              {user &&
+                <LinkContainer to="/todo">
+                  <NavItem eventKey={1}>Todo List</NavItem>
+                </LinkContainer>}
               {user && <LinkContainer to="/chat">
                 <NavItem eventKey={1}>PRODUCTS</NavItem>
               </LinkContainer>}
-
-              <LinkContainer to="/logout">
-                <NavItem eventKey={2} className="logout-link" onClick={this.handleLogout}>
+            </Nav>
+            <Nav navbar pullRight>
+              <NavItem eventKey={2} className="logout-link" onClick={this.handleLogout}>
+                  <span className="glyphicon glyphicon-log-in" id="logIcon"></span>
+                  &nbsp;
                   Logout
                 </NavItem>
-              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Navbar>}
 
-        <div className={styles.appContent}>
+        <div className={styles.appContent + ' container'}>
           {this.props.children}
         </div>
         <footer className="footer">

@@ -14,7 +14,7 @@ export default class TodoList extends Component {
   render() {
     const {todos, onTodoClick} = this.props;
     return (
-      <ul>
+      <ul className="list-group">
         {todos.map(todo =>
           <Todo
             {...todo}

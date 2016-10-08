@@ -11,6 +11,7 @@ export default class Todo extends Component {
     const {onClick, completed, text} = this.props;
     return (
       <li
+        className="list-group-item"
         onClick={onClick}
         style={{ textDecoration: completed ? 'line-through' : 'none' }}
         >

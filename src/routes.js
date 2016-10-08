@@ -25,7 +25,9 @@ export default (store, token) => {
     }
 
     if (!isAuthLoaded(store.getState()) && token) {
-      store.dispatch(loadAuth()).then(checkAuth);
+      store.dispatch(loadAuth())
+        .then(checkAuth)
+        .catch(checkAuth);
     } else {
       checkAuth();
     }
