@@ -43,7 +43,7 @@ export default class Login extends Component {
   render() {
     const {user, logout, loggingIn} = this.props;
     const styles = require('./Login.scss');
-    const appLogo = require('./AppLogo.png');
+    const appLogo = require('./app-logo.svg');
     let loggingInClassName = 'fa fa-sign-in';
     let loginButtonText = 'SIGN IN TO YOUR ACCOUNT';
     if (loggingIn) {
@@ -57,7 +57,7 @@ export default class Login extends Component {
         {!user &&
         <div className={styles.formTitle + ' row'}>
           <div className="text-center">
-            <h1>iWareHouse</h1>
+            <h1>Sign In</h1>
           </div>
         </div>}
 
@@ -76,6 +76,7 @@ export default class Login extends Component {
             <button disabled={loggingIn} className="btn-block btn btn-primary" onClick={this.handleSubmit}>
               <i className={loggingInClassName}/>{' '}{loginButtonText}
             </button>
+            <p className={styles.message + ' text-center'}>Not registered? <a href="#">Create an account</a></p>
           </form>
         </div>
         }
