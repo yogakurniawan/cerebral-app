@@ -60,7 +60,6 @@ export default class App extends Component {
     const instagramLogo = require('./instagram.svg');
     const linkedinLogo = require('./linkedin.svg');
     const twitterLogo = require('./twitter.svg');
-    // const appLogo = require('./upper-logo.svg');
 
     return (
       <div className={styles.app}>
@@ -69,7 +68,7 @@ export default class App extends Component {
           <Navbar.Header>
             <Navbar.Brand>
               <IndexLink to="/">
-                <div className={styles.brand}/>
+                <div className={styles.brandLogo}/>
               </IndexLink>
             </Navbar.Brand>
             <Navbar.Toggle/>

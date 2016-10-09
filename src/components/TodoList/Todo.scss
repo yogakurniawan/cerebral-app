@@ -1,0 +1,8 @@
+.todoItem {
+  div {
+    display: none;
+  }
+  &:hover div {
+    display: block;
+  }
+}

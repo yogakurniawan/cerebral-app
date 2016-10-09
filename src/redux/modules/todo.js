@@ -41,12 +41,11 @@ export default function reducer(state = initialState, action) {
         todos
       };
     case TOGGLE_TODO:
-      todos = state.map(td =>
+      todos = state.todos.map(td =>
         todo(td, action)
       );
       return {
         ...state,
-        filter: SHOW_ALL,
         todos
       };
     case SET_VISIBILITY_FILTER:
