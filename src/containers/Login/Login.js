@@ -27,11 +27,9 @@ export default class Login extends Component {
     const promise = this.props.login(input.value, password.value);
     promise
       .then(login => {
-        console.log(login);
         Cookie.set('token', login.id);
       })
-      .catch(error => {
-        console.log(error);
+      .catch(() => {
         notification.addNotification({
           message: 'Invalid Email or Password',
           level: 'error',
