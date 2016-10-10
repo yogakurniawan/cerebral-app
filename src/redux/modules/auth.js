@@ -1,4 +1,5 @@
 import Cookie from 'js-cookie';
+import {commonAsyncUtil} from 'utils/commonAsyncUtil';
 
 const LOAD = 'redux-example/auth/LOAD';
 const LOAD_SUCCESS = 'redux-example/auth/LOAD_SUCCESS';
@@ -128,14 +129,14 @@ export function logout() {
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
     promise: (client) => {
-      return client.post('users/logout', {
+      return commonAsyncUtil(client.post('users/logout', {
         params: {
           access_token: Cookie.get('token')
         }
       }).then(new Promise((resolve) => {
         Cookie.remove('token');
         return resolve(null);
-      }));
+      })));
     }
   };
 }
