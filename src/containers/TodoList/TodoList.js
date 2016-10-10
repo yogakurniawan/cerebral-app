@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as todoActions from 'redux/modules/todo';
-import TodoList from 'components/TodoList/TodoList';
+import {TodoList} from 'components';
 const SHOW_ALL = 'SHOW_ALL';
 const SHOW_COMPLETED = 'SHOW_COMPLETED';
 const SHOW_ACTIVE = 'SHOW_ACTIVE';
