@@ -86,7 +86,7 @@ export default class App extends Component {
             </Nav>
             <Nav navbar pullRight>
               <NavItem eventKey={2} className="logout-link" onClick={this.handleLogout}>
-                  <span className="glyphicon glyphicon-log-in" id="logIcon"></span>
+                  <i className="fa fa-sign-out" aria-hidden="true"></i>
                   &nbsp;
                   Logout
                 </NavItem>

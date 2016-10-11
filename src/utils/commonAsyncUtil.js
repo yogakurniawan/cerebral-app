@@ -1,5 +1,5 @@
 export const commonAsyncUtil = (promise) => {
-  promise
+  return promise
     .then(() => {
       // TODO : to add success action
     })
