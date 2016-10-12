@@ -15,17 +15,17 @@ module.exports = Object.assign({
   apiHost: process.env.APIHOST || 'localhost',
   apiPort: process.env.APIPORT,
   app: {
-    title: 'iWareHouse',
+    title: 'Cerebral',
     description: 'All the modern best practices in one example.',
     head: {
-      titleTemplate: 'iWareHouse: %s',
+      titleTemplate: 'Cerebral: %s',
       meta: [
         {name: 'description', content: 'All the modern best practices in one example.'},
         {charset: 'utf-8'},
-        {property: 'og:site_name', content: 'iWareHouse'},
+        {property: 'og:site_name', content: 'Cerebral'},
         {property: 'og:image', content: 'https://react-redux.herokuapp.com/logo.jpg'},
         {property: 'og:locale', content: 'en_US'},
-        {property: 'og:title', content: 'iWareHouse'},
+        {property: 'og:title', content: 'Cerebral'},
         {property: 'og:description', content: 'All the modern best practices in one example.'},
         {property: 'og:card', content: 'summary'},
         {property: 'og:site', content: '@erikras'},

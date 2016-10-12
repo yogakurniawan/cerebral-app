@@ -69,6 +69,7 @@ export default class App extends Component {
             <Navbar.Brand>
               <IndexLink to="/">
                 <div className={styles.brandLogo}/>
+                <span>{config.app.title}</span>
               </IndexLink>
             </Navbar.Brand>
             <Navbar.Toggle/>
@@ -97,7 +98,7 @@ export default class App extends Component {
         <div className={styles.appContent + ' container'}>
           {this.props.children}
         </div>
-        <footer className="footer">
+        {user && <footer className="footer">
           <div className="container">
             <div className="row text-center">
               <a target="_blank" href="https://www.facebook.com/yogakurniawan"><img className={styles.socialLogo} src={facebookLogo}/></a>
@@ -110,7 +111,7 @@ export default class App extends Component {
               <p><i className={styles.strong + ' fa fa-code'} aria-hidden="true"></i> with <i className={styles.red + ' fa fa-heart'} aria-hidden="true"></i> by <strong>Yoga</strong></p>
             </div>
           </div>
-        </footer>
+        </footer>}
       </div>
     );
   }
