@@ -81,8 +81,8 @@ export default class App extends Component {
                 <LinkContainer to="/todo">
                   <NavItem eventKey={1}>Todo List</NavItem>
                 </LinkContainer>}
-              {user && <LinkContainer to="/chat">
-                <NavItem eventKey={1}>PRODUCTS</NavItem>
+              {user && <LinkContainer to="/register">
+                <NavItem eventKey={1}>Registration</NavItem>
               </LinkContainer>}
             </Nav>
             <Nav navbar pullRight>
