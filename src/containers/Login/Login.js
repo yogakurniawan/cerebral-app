@@ -63,13 +63,17 @@ export default class Login extends Component {
         <div className="row">
           <form className="login-form" onSubmit={this.handleSubmit}>
             <div className={styles.appLogo}><img src={appLogo} /></div>
-            <div className={'input-group ' + styles.topBottomBuffer}>
-              <span className="input-group-addon" id="username-addon"><i className={'fa fa-at ' + styles.faAt} /></span>
-              <input aria-describedby="username-addon" type="text" ref="username" id="login-username" placeholder="Username" className="form-control"/>
+            <div className="form-group">
+              <div className="input-group">
+                <span className="input-group-addon" id="username-addon"><i className={'fa fa-at ' + styles.faAt} /></span>
+                <input aria-describedby="username-addon" type="text" ref="username" id="login-username" placeholder="Username" className="form-control"/>
+              </div>
             </div>
-            <div className={'input-group ' + styles.topBottomBuffer}>
-              <span className="input-group-addon" id="password-addon"><i className={'fa fa-lock ' + styles.faLock} /></span>
-              <input aria-describedby="password-addon" type="password" ref="password" id="login-password" placeholder="Password" className="form-control"/>
+            <div className="form-group">
+              <div className="input-group">
+                <span className="input-group-addon" id="password-addon"><i className={'fa fa-lock ' + styles.faLock} /></span>
+                <input aria-describedby="password-addon" type="password" ref="password" id="login-password" placeholder="Password" className="form-control"/>
+              </div>
             </div>
             <button disabled={loggingIn} className="btn-block btn btn-primary" onClick={this.handleSubmit}>
               <i className={loggingInClassName}/>{' '}{loginButtonText}

@@ -3,7 +3,7 @@ import {IndexRedirect, Route} from 'react-router';
 import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth';
 import {
     App,
-    RegistrationForm,
+    Registration,
     Widgets,
     Login,
     Home,
@@ -43,7 +43,7 @@ export default (store, token) => {
 
       { /* Routes requiring login */ }
       <Route onEnter={requireLogin}>
-        <Route path="register" component={RegistrationForm}/>
+        <Route path="register" component={Registration}/>
         <Route path="todo" component={TodoList}/>
         <Route path="home" component={Home}/>
         <Route path="loginSuccess" component={LoginSuccess}/>
