@@ -8,3 +8,4 @@
 export SurveyForm from './SurveyForm/SurveyForm';
 export RegistrationForm from './RegistrationForm/RegistrationForm';
 export TodoList from './TodoList/TodoList';
+export LoginForm from './LoginForm/LoginForm';

@@ -9,9 +9,15 @@ export default class Registration extends Component {
   }
 
   render() {
+    const styles = require('../Login/Login.scss');
     return (
-      <div>
+      <div className={styles.loginPage + ' container'}>
         <Helmet title="Registration" />
+        <div className={styles.formTitle + ' row'}>
+          <div className="text-center">
+            <h1>Sign Up</h1>
+          </div>
+        </div>
         <RegistrationForm onSubmit={this.handleSubmit} />
       </div>
     );

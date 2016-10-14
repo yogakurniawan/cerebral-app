@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import * as authActions from 'redux/modules/auth';
 import Cookie from 'js-cookie';
 import NotificationSystem from 'react-notification-system';
+import {LoginForm} from 'components';
 
 @connect(
   state => ({
@@ -19,13 +20,12 @@ export default class Login extends Component {
     loggingIn: PropTypes.bool
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const input = this.refs.username;
-    const password = this.refs.password;
+  handleSubmit = values => {
+    const username = values.username;
+    const password = values.password;
     const notification = this.refs.notificationSystem;
-    const promise = this.props.login(input.value, password.value);
-    promise
+    const promise = this.props.login(username, password);
+    return promise
       .then(login => {
         Cookie.set('token', login.id);
       })
@@ -39,15 +39,8 @@ export default class Login extends Component {
   }
 
   render() {
-    const {user, logout, loggingIn} = this.props;
+    const {user, logout} = this.props;
     const styles = require('./Login.scss');
-    const appLogo = require('./app-logo.svg');
-    let loggingInClassName = 'fa fa-sign-in';
-    let loginButtonText = 'SIGN IN TO YOUR ACCOUNT';
-    if (loggingIn) {
-      loggingInClassName += 'fa fa-spinner fa-spin';
-      loginButtonText = 'SIGNING IN...';
-    }
     return (
       <div className={styles.loginPage + ' container'}>
         <Helmet title="Login"/>
@@ -61,25 +54,7 @@ export default class Login extends Component {
 
         {!user &&
         <div className="row">
-          <form className="login-form" onSubmit={this.handleSubmit}>
-            <div className={styles.appLogo}><img src={appLogo} /></div>
-            <div className="form-group">
-              <div className="input-group">
-                <span className="input-group-addon" id="username-addon"><i className={'fa fa-at ' + styles.faAt} /></span>
-                <input aria-describedby="username-addon" type="text" ref="username" id="login-username" placeholder="Username" className="form-control"/>
-              </div>
-            </div>
-            <div className="form-group">
-              <div className="input-group">
-                <span className="input-group-addon" id="password-addon"><i className={'fa fa-lock ' + styles.faLock} /></span>
-                <input aria-describedby="password-addon" type="password" ref="password" id="login-password" placeholder="Password" className="form-control"/>
-              </div>
-            </div>
-            <button disabled={loggingIn} className="btn-block btn btn-primary" onClick={this.handleSubmit}>
-              <i className={loggingInClassName}/>{' '}{loginButtonText}
-            </button>
-            <p className={styles.message + ' text-center'}>Not registered? <a href="#">Create an account</a></p>
-          </form>
+          <LoginForm onSubmit={this.handleSubmit} />
         </div>
         }
         {user &&

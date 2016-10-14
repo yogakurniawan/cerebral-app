@@ -43,7 +43,6 @@ export default (store, token) => {
 
       { /* Routes requiring login */ }
       <Route onEnter={requireLogin}>
-        <Route path="register" component={Registration}/>
         <Route path="todo" component={TodoList}/>
         <Route path="home" component={Home}/>
         <Route path="loginSuccess" component={LoginSuccess}/>
@@ -51,6 +50,7 @@ export default (store, token) => {
 
       { /* Routes */ }
       <Route path="login" component={Login}/>
+      <Route path="register" component={Registration}/>
       <Route path="survey" component={Survey}/>
       <Route path="widgets" component={Widgets}/>
 
