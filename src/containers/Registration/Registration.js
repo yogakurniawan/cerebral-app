@@ -1,11 +1,26 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {RegistrationForm} from 'components';
 import Helmet from 'react-helmet';
+import {connect} from 'react-redux';
+import * as authActions from 'redux/modules/auth';
 
+@connect(undefined, authActions)
 export default class Registration extends Component {
+
+  static propTypes = {
+    register: PropTypes.func.isRequired
+  }
 
   handleSubmit = data => {
     window.alert('You submitted:\n\n' + JSON.stringify(data, null, 2));
+    const promise = this.props.register(data);
+    return promise
+      .then(login => {
+        
+      })
+      .catch(() => {
+        
+      });
   }
 
   render() {

@@ -8,16 +8,14 @@ import {LoginForm} from 'components';
 
 @connect(
   state => ({
-    user: state.auth.user,
-    loggingIn: state.auth.loggingIn
+    user: state.auth.user
   }),
   authActions)
 export default class Login extends Component {
   static propTypes = {
     user: PropTypes.object,
     login: PropTypes.func,
-    logout: PropTypes.func,
-    loggingIn: PropTypes.bool
+    logout: PropTypes.func
   }
 
   handleSubmit = values => {

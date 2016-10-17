@@ -10,9 +10,9 @@ const LOGIN_FAIL = 'redux-example/auth/LOGIN_FAIL';
 const LOGOUT = 'redux-example/auth/LOGOUT';
 const LOGOUT_SUCCESS = 'redux-example/auth/LOGOUT_SUCCESS';
 const LOGOUT_FAIL = 'redux-example/auth/LOGOUT_FAIL';
-const LOOKUP = 'redux-example/auth/LOOKUP';
-const LOOKUP_SUCCESS = 'redux-example/auth/LOOKUP_SUCCESS';
-const LOOKUP_FAIL = 'redux-example/auth/LOOKUP_FAIL';
+const REGISTER   = 'redux-example/auth/REGISTER ';
+const REGISTER  _SUCCESS = 'redux-example/auth/REGISTER _SUCCESS';
+const REGISTER  _FAIL = 'redux-example/auth/REGISTER  _FAIL';
 
 const initialState = {
   loaded: false
@@ -78,23 +78,23 @@ export default function reducer(state = initialState, action = {}) {
         loggingOut: false,
         logoutError: error
       };
-    case LOOKUP:
+    case REGISTER :
       return {
         ...state,
-        loading: true
+        registering: true
       };
-    case LOOKUP_SUCCESS:
+    case REGISTER_SUCCESS:
       return {
         ...state,
-        loading: false,
-        loaded: true,
-        lookup: result
+        registering: false,
+        registered: true,
+        registrationResponse: result
       };
-    case LOOKUP_FAIL:
+    case REGISTER_FAIL:
       return {
         ...state,
-        loading: false,
-        loaded: false,
+        registering: false,
+        registered: false,
         error: error
       };
     default:
@@ -141,9 +141,11 @@ export function logout() {
   };
 }
 
-export function getLookup() {
+export function register(data) {
   return {
-    types: [LOOKUP, LOOKUP_SUCCESS, LOOKUP_FAIL],
-    promise: (client) => client.get('/lookups')
+    types: [REGISTER, REGISTER_SUCCESS, REGISTER_FAIL],
+    promise: (client) => client.post('/users', {
+      data: data
+    })
   };
 }
