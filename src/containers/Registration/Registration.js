@@ -12,15 +12,10 @@ export default class Registration extends Component {
   }
 
   handleSubmit = data => {
-    window.alert('You submitted:\n\n' + JSON.stringify(data, null, 2));
     const promise = this.props.register(data);
     return promise
-      .then(login => {
-        
-      })
-      .catch(() => {
-        
-      });
+      .then()
+      .catch();
   }
 
   render() {
