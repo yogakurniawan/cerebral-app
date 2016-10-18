@@ -14,7 +14,6 @@ export default class LoginForm extends Component {
   render() {
     const {submitting, handleSubmit} = this.props;
     const styles = require('containers/Login/Login.scss');
-    const appLogo = require('containers/Login/app-logo.svg');
     let loggingInClassName = 'fa fa-sign-in';
     let loginButtonText = 'SIGN IN TO YOUR ACCOUNT';
     if (submitting) {
@@ -24,7 +23,7 @@ export default class LoginForm extends Component {
     return (
       <div className={styles.loginPage}>
         <form className="login-form" onSubmit={handleSubmit}>
-          <div className={styles.appLogo}><img src={appLogo} /></div>
+          <div className={styles.appLogo}><img src="https://storage.googleapis.com/cerebral/cerebral-app-logo.svg" /></div>
           <div className="form-group">
             <div className="input-group">
               <span className="input-group-addon" id="username-addon"><i className={'fa fa-at ' + styles.faAt} /></span>

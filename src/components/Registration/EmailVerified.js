@@ -14,13 +14,12 @@ export default class RegistrationSuccess extends Component {
   }
 
   render() {
-    const appLogo = require('containers/Login/app-logo.svg');
     const styles = require('containers/Login/Login.scss');
     return (
       <div className={styles.loginPage + ' container'}>
         <Helmet title="Registration Success" />
         <div className="row">
-          <div className={styles.appLogo}><img src={appLogo} /></div>
+          <div className={styles.appLogo}><img src="https://storage.googleapis.com/cerebral/cerebral-app-logo.svg" /></div>
           <div className="alert alert-success text-center" role="alert">
             <p>Congratulations!</p>
             <p>Your email has been verified.</p>

@@ -52,7 +52,6 @@ export default class RegistrationForm extends Component {
 
   render() {
     const {submitting, handleSubmit} = this.props;
-    const appLogo = require('containers/Login/app-logo.svg');
     const styles = require('containers/Login/Login.scss');
     let registerButtonText = 'GET STARTED';
     if (submitting) {
@@ -61,7 +60,7 @@ export default class RegistrationForm extends Component {
     return (
       <div>
         <form className="form-horizontal" onSubmit={handleSubmit}>
-          <div className={styles.appLogo}><img src={appLogo} /></div>
+          <div className={styles.appLogo}><img src="https://storage.googleapis.com/cerebral/cerebral-app-logo.svg" /></div>
           <Field name="firstname" maxLength="100" type="text" component={renderField} className="form-control" placeholder="First Name" />
           <Field name="lastname" maxLength="100" type="text" component={renderField} className="form-control" placeholder="Last Name" />
           <Field name="username" maxLength="100" type="text" component={renderField} className="form-control" placeholder="Username" />

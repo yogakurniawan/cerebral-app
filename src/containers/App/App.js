@@ -66,11 +66,6 @@ export default class App extends Component {
   render() {
     const {user} = this.props;
     const styles = require('./App.scss');
-    const facebookLogo = require('./facebook.svg');
-    const githubLogo = require('./github.svg');
-    const instagramLogo = require('./instagram.svg');
-    const linkedinLogo = require('./linkedin.svg');
-    const twitterLogo = require('./twitter.svg');
 
     return (
       <div className={styles.app}>
@@ -112,11 +107,11 @@ export default class App extends Component {
         {user && <footer className="footer">
           <div className="container">
             <div className="row text-center">
-              <a target="_blank" href="https://www.facebook.com/yogakurniawan"><img className={styles.socialLogo} src={facebookLogo}/></a>
-              <a target="_blank" href="https://www.github.com/yogakurniawan"><img className={styles.socialLogo} src={githubLogo}/></a>
-              <a target="_blank" href="https://www.instagram.com/yogakurniawan/"><img className={styles.socialLogo} src={instagramLogo}/></a>
-              <a target="_blank" href="https://www.twitter.com/yogkurniawan"><img className={styles.socialLogo} src={twitterLogo}/></a>
-              <a target="_blank" href="https://www.linkedin.com/in/yogakurniawan"><img className={styles.socialLogo} src={linkedinLogo}/></a>
+              <a target="_blank" href="https://www.facebook.com/yogakurniawan"><img className={styles.socialLogo} src="https://storage.googleapis.com/cerebral/facebook.svg" /></a>
+              <a target="_blank" href="https://www.github.com/yogakurniawan"><img className={styles.socialLogo} src="https://storage.googleapis.com/cerebral/github.svg" /></a>
+              <a target="_blank" href="https://www.instagram.com/yogakurniawan/"><img className={styles.socialLogo} src="https://storage.googleapis.com/cerebral/instagram.svg" /></a>
+              <a target="_blank" href="https://www.twitter.com/yogkurniawan"><img className={styles.socialLogo} src="https://storage.googleapis.com/cerebral/twitter.svg" /></a>
+              <a target="_blank" href="https://www.linkedin.com/in/yogakurniawan"><img className={styles.socialLogo} src="https://storage.googleapis.com/cerebral/linkedin.svg" /></a>
             </div>
             <div className="row text-center">
               <p><i className={styles.strong + ' fa fa-code'} aria-hidden="true"></i> with <i className={styles.red + ' fa fa-heart'} aria-hidden="true"></i> by <strong>Yoga</strong></p>
