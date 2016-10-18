@@ -6,7 +6,11 @@ import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import Helmet from 'react-helmet';
-import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
+import {
+  isLoaded as isAuthLoaded,
+  load as loadAuth,
+  logout
+} from 'redux/modules/auth';
 import { push } from 'react-router-redux';
 import config from '../../config';
 import { asyncConnect } from 'redux-async-connect';
@@ -24,12 +28,16 @@ import Cookie from 'js-cookie';
     return Promise.all(promises);
   }
 }])
-@connect(state => ({ user: state.auth.user }), { logout, pushState: push })
+@connect(state => ({
+  user: state.auth.user,
+  registrationResponse: state.auth.registrationResponse
+}), { logout, pushState: push })
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     user: PropTypes.object,
     logout: PropTypes.func.isRequired,
+    registrationResponse: PropTypes.object,
     pushState: PropTypes.func.isRequired
   };
 
@@ -44,6 +52,9 @@ export default class App extends Component {
     } else if (this.props.user && !nextProps.user) {
       // logout
       this.props.pushState('/');
+    } else if (!this.props.registrationResponse && nextProps.registrationResponse) {
+      // register success
+      this.props.pushState('/registerSuccess');
     }
   }
 

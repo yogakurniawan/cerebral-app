@@ -17,7 +17,6 @@ export default class LoginForm extends Component {
     const appLogo = require('containers/Login/app-logo.svg');
     let loggingInClassName = 'fa fa-sign-in';
     let loginButtonText = 'SIGN IN TO YOUR ACCOUNT';
-    console.log(submitting);
     if (submitting) {
       loggingInClassName += 'fa fa-spinner fa-spin';
       loginButtonText = 'SIGNING IN...';
