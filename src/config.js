@@ -12,7 +12,8 @@ const environment = {
 module.exports = Object.assign({
   host: process.env.HOST || 'localhost',
   port: process.env.PORT,
-  apiHost: process.env.APIHOST || 'localhost',
+  apiHost: 'https://warm-waters-10780.herokuapp.com',
+  localApiHost: 'localhost',
   apiPort: process.env.APIPORT,
   app: {
     title: 'Cerebral',

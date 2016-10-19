@@ -20,9 +20,7 @@ import createHistory from 'react-router/lib/createMemoryHistory';
 import {Provider} from 'react-redux';
 import getRoutes from './routes';
 
-const loopbackBaseUrl = 'http://' + config.apiHost + ':9000';
-const loopbackApiUrl = loopbackBaseUrl + '/api';
-const loopbackSocketUrl = loopbackBaseUrl + '/socket.io';
+const loopbackApiUrl = config.apiHost + '/api';
 const pretty = new PrettyError();
 const app = new Express();
 const server = new http.Server(app);
@@ -42,9 +40,6 @@ app.use('/api', (req, res) => {
   proxy.web(req, res, { target: loopbackApiUrl });
 });
 
-app.use('/ws', (req, res) => {
-  proxy.web(req, res, { target: loopbackSocketUrl });
-});
 app.use(cookieParser());
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
