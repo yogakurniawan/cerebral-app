@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Link } from 'react-router';
+import zxcvbn from 'zxcvbn';
+import { connect } from 'react-redux';
 
 const requiredValidation = (values, fields) => {
   const errors = {};
@@ -31,7 +33,7 @@ const validate = values => {
 const renderField = ({ input, meta: { touched, error, warning }, ...rest }) => {
   const regStyles = require('./RegistrationForm.scss');
   return (
-    <div className={'form-group' + (error && touched ? ' has-error' : '')}>
+    <div className={(input.name === 'password' ? regStyles.marginBottom8px : '') + ' form-group' + (error && touched ? ' has-error' : '')}>
       <div className="col-xs-12">
         <input {...input} {...rest} />
         {touched && ((error && <span className={regStyles.error}>{error}</span>) || (warning && <span className="warning">{warning}</span>))}
@@ -40,6 +42,11 @@ const renderField = ({ input, meta: { touched, error, warning }, ...rest }) => {
   );
 };
 
+const selector = formValueSelector('Registration');
+
+@connect(state => ({
+  password: selector(state, 'password')
+}))
 @reduxForm({
   form: 'Registration',
   validate
@@ -47,13 +54,39 @@ const renderField = ({ input, meta: { touched, error, warning }, ...rest }) => {
 export default class RegistrationForm extends Component {
   static propTypes = {
     submitting: PropTypes.bool.isRequired,
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    password: PropTypes.string
+  }
+
+  getStrengthClassName = {
+    0: 'passwordstrength-none',
+    1: 'passwordstrength1',
+    2: 'passwordstrength2',
+    3: 'passwordstrength3',
+    4: 'passwordstrength4'
+  }
+
+  getStrengthLiteral = {
+    0: 'Weak',
+    1: 'Fair',
+    2: 'Good',
+    3: 'Strong',
+    4: 'Very Strong'
   }
 
   render() {
-    const {submitting, handleSubmit} = this.props;
+    const {submitting, handleSubmit, password} = this.props;
     const styles = require('containers/Login/Login.scss');
+    const regStyles = require('./RegistrationForm.scss');
     let registerButtonText = 'GET STARTED';
+    let className = '';
+    let strengthLiteral = '';
+    if (password) {
+      const score = zxcvbn(password).score;
+      className = this.getStrengthClassName[score];
+      strengthLiteral = 'Password strength: ' + this.getStrengthLiteral[score];
+    }
+
     if (submitting) {
       registerButtonText = 'SIGNING UP...';
     }
@@ -66,6 +99,9 @@ export default class RegistrationForm extends Component {
           <Field name="username" maxLength="100" type="text" component={renderField} className="form-control" placeholder="Username" />
           <Field name="email" maxLength="100" type="text" component={renderField} className="form-control" placeholder="Email" />
           <Field name="password" type="password" component={renderField} className="form-control" placeholder="Password" />
+          <div className={regStyles.passwordstrength + ' ' + regStyles[className]}>
+            {strengthLiteral}
+          </div>
           <button disabled={submitting} className="btn-block btn btn-primary">
             {submitting && <i className="fa fa-spinner fa-spin" aria-hidden="true"></i>}{submitting && ' '}{registerButtonText}{' '}{!submitting && <i className="fa fa-angle-right" aria-hidden="true"></i>}
           </button>
