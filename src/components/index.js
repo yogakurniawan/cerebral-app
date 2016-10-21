@@ -4,8 +4,6 @@
  *  ie: import { CounterButton, InfoBar } from 'components';
  *
  */
-
-export SurveyForm from './SurveyForm/SurveyForm';
 export RegistrationForm from './Registration/RegistrationForm';
 export RegistrationSuccess from './Registration/RegistrationSuccess';
 export EmailVerified from './Registration/EmailVerified';
