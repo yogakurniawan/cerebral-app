@@ -1,14 +1,14 @@
 {
-  "name": "react-redux-universal-hot-example",
+  "name": "react-fullstack",
   "description": "Example of an isomorphic (universal) webapp using react redux and hot reloading",
-  "author": "Erik Rasmussen <rasmussenerik@gmail.com> (http://github.com/erikras)",
+  "author": "Yoga Kurniawan <yogaygk@gmail.com> (http://github.com/yogakurniawan)",
   "license": "MIT",
   "version": "0.9.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/erikras/react-redux-universal-hot-example"
+    "url": "https://github.com/yogakurniawan/react-fullstack"
   },
-  "homepage": "https://github.com/erikras/react-redux-universal-hot-example",
+  "homepage": "https://github.com/yogakurniawan/react-fullstack",
   "keywords": [
     "react",
     "isomorphic",
@@ -41,8 +41,7 @@
       "command": "node ./bin/server.js",
       "env": {
         "NODE_PATH": "./src",
-        "NODE_ENV": "production",
-        "PORT": 8080
+        "NODE_ENV": "production"
       }
     },
     "start-prod-api": {
