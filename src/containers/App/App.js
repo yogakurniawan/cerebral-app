@@ -52,9 +52,6 @@ export default class App extends Component {
     } else if (this.props.user && !nextProps.user) {
       // logout
       this.props.pushState('/');
-    } else if (!this.props.registrationResponse && nextProps.registrationResponse) {
-      // register success
-      this.props.pushState('/registerSuccess');
     }
   }
 

@@ -4,19 +4,23 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import * as authActions from 'redux/modules/auth';
 import NotificationSystem from 'react-notification-system';
+import { push } from 'react-router-redux';
 
-@connect(undefined, authActions)
+@connect(undefined, {...authActions, pushState: push})
 export default class Registration extends Component {
 
   static propTypes = {
-    register: PropTypes.func.isRequired
+    register: PropTypes.func.isRequired,
+    pushState: PropTypes.func.isRequired
   }
 
   handleSubmit = data => {
     const promise = this.props.register(data);
     const notification = this.refs.notificationSystem;
     return promise
-      .then()
+      .then(() => {
+        this.props.pushState('/registerSuccess');
+      })
       .catch(() => notification.addNotification({
         message: 'Invalid Email or Password',
         level: 'error',
