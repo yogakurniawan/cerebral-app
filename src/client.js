@@ -37,7 +37,7 @@ store.subscribe(throttle(() => {
 
 
 function initSocket() {
-  const socket = io('https://cerebral-api.herokuapp.com', { path: '/socket.io' });
+  const socket = io(config.apiHost, { path: '/socket.io' });
   socket.on('news', (data) => {
     console.log(data);
     socket.emit('my other event', { my: 'data from client' });

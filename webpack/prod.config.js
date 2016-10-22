@@ -59,7 +59,8 @@ module.exports = {
     new ExtractTextPlugin('[name]-[chunkhash].css', {allChunks: true}),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
+        NODE_ENV: '"production"',
+        APIHOST: '"https://cerebral-api.herokuapp.com"'
       },
 
       __CLIENT__: true,
