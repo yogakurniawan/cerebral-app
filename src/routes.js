@@ -8,7 +8,6 @@ import {
     Login,
     Home,
     TodoList,
-    LoginSuccess,
     Survey,
     NotFound,
   } from 'containers';
@@ -58,7 +57,6 @@ export default (store, token) => {
       <Route onEnter={requireLogin}>
         <Route path="todo" component={TodoList}/>
         <Route path="home" component={Home}/>
-        <Route path="loginSuccess" component={LoginSuccess}/>
       </Route>
 
       { /* Routes */ }
