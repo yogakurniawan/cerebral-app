@@ -64,16 +64,16 @@ export default class App extends Component {
 
     return (
       <div className={styles.app}>
-        <Helmet {...config.app.head}/>
+        <Helmet {...config.app.head} />
         {user && <Navbar fixedTop>
           <Navbar.Header>
             <Navbar.Brand>
               <IndexLink to="/home">
-                <div className={styles.brandLogo}/>
+                <div className={styles.brandLogo} />
                 <span>{config.app.title}</span>
               </IndexLink>
             </Navbar.Brand>
-            <Navbar.Toggle/>
+            <Navbar.Toggle />
           </Navbar.Header>
 
           <Navbar.Collapse eventKey={0}>
@@ -82,11 +82,15 @@ export default class App extends Component {
                 <LinkContainer to="/todo">
                   <NavItem eventKey={1}>Todo List</NavItem>
                 </LinkContainer>}
+              {user &&
+                <LinkContainer to="/patients">
+                  <NavItem eventKey={1}>Patients</NavItem>
+                </LinkContainer>}
             </Nav>
             <Nav navbar pullRight>
               <NavItem eventKey={2} className="logout-link" onClick={this.handleLogout}>
-                  <i className="fa fa-sign-out" aria-hidden="true"></i>
-                  &nbsp;
+                <i className="fa fa-sign-out" aria-hidden="true"></i>
+                &nbsp;
                   Logout
                 </NavItem>
             </Nav>

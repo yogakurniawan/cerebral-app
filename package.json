@@ -67,7 +67,7 @@
       "env": {
         "NODE_PATH": "./api",
         "NODE_ENV": "development",
-        "APIHOST": "https://cerebral-api.herokuapp.com"        
+        "APIHOST": "https://cerebral-api.herokuapp.com"
       }
     },
     "watch-client": {
@@ -115,7 +115,8 @@
     "piping": "^0.3.0",
     "pretty-error": "^1.2.0",
     "react": "^0.14.2",
-    "react-bootstrap": "^0.28.1",
+    "react-bootstrap": "^0.30.5",
+    "react-datepicker": "^0.32.0",
     "react-dom": "^0.14.1",
     "react-helmet": "^2.2.0",
     "react-inline-css": "^2.0.0",
