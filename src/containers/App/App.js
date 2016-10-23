@@ -68,7 +68,7 @@ export default class App extends Component {
         {user && <Navbar fixedTop>
           <Navbar.Header>
             <Navbar.Brand>
-              <IndexLink to="/">
+              <IndexLink to="/home">
                 <div className={styles.brandLogo}/>
                 <span>{config.app.title}</span>
               </IndexLink>
