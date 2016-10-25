@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
+import { connect } from 'react-redux';
 // import { Link } from 'react-router';
 
 const renderField = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
@@ -29,6 +30,7 @@ const renderCheckbox = ({ input, label, meta: { touched, error, warning }, ...re
   );
 };
 
+@connect(state => ({lookups: state.lookups.data}))
 @reduxForm({
   form: 'Patient'
 })
@@ -71,7 +73,7 @@ export default class PatientForm extends Component {
                 <option>Title</option>
                 {
                   lookups.map(lookup =>
-                    <option value={lookup.lookupvalue}>{lookup.lookuptext}</option>
+                    <option value={lookup.lookupvalue} key={lookup.lookupvalue}>{lookup.lookuptext}</option>
                   )
                 }
               </Field>

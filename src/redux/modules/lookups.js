@@ -1,6 +1,6 @@
-const LOAD = 'redux-example/auth/LOAD';
-const LOAD_SUCCESS = 'redux-example/auth/LOAD_SUCCESS';
-const LOAD_FAIL = 'redux-example/auth/LOAD_FAIL';
+const LOAD_LOOKUP = 'redux-example/lookup/LOAD';
+const LOAD_LOOKUP_SUCCESS = 'redux-example/lookup/LOAD_SUCCESS';
+const LOAD_LOOKUP_FAIL = 'redux-example/lookup/LOAD_FAIL';
 
 const initialState = {
   loaded: false
@@ -9,19 +9,19 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   const {result, error} = action;
   switch (action.type) {
-    case LOAD:
+    case LOAD_LOOKUP:
       return {
         ...state,
         loading: true
       };
-    case LOAD_SUCCESS:
+    case LOAD_LOOKUP_SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
-        payload: result
+        data: result
       };
-    case LOAD_FAIL:
+    case LOAD_LOOKUP_FAIL:
       return {
         ...state,
         loading: false,
@@ -33,9 +33,13 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
+export function isLoaded(globalState) {
+  return globalState.lookups && globalState.lookups.loaded;
+}
+
 export function load() {
   return {
-    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
+    types: [LOAD_LOOKUP, LOAD_LOOKUP_SUCCESS, LOAD_LOOKUP_FAIL],
     promise: (client) => client.get('/lookups')
   };
 }

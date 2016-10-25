@@ -11,6 +11,10 @@ import {
   load as loadAuth,
   logout
 } from 'redux/modules/auth';
+import {
+  isLoaded as isLookupsLoaded,
+  load as loadLookups
+} from 'redux/modules/lookups';
 import { push } from 'react-router-redux';
 import config from '../../config';
 import { asyncConnect } from 'redux-async-connect';
@@ -23,6 +27,10 @@ import Cookie from 'js-cookie';
 
     if (!isAuthLoaded(getState()) && token) {
       promises.push(dispatch(loadAuth()));
+    }
+
+    if (!isLookupsLoaded(getState())) {
+      promises.push(dispatch(loadLookups()));
     }
 
     return Promise.all(promises);
