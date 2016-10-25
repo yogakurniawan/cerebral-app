@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/lib/Button';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
-// import Checkbox from 'react-bootstrap/lib/Checkbox';
 // import { Link } from 'react-router';
 
 const renderField = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
@@ -36,11 +35,21 @@ const renderCheckbox = ({ input, label, meta: { touched, error, warning }, ...re
 export default class PatientForm extends Component {
   static propTypes = {
     submitting: PropTypes.bool.isRequired,
+    lookups: PropTypes.arrayOf(PropTypes.shape({
+      lookupname: PropTypes.string.isRequired,
+      lookupvalue: PropTypes.number.isRequired,
+      lookuptext: PropTypes.string.isRequired,
+      displayorder: PropTypes.number.isRequired,
+      createddate: PropTypes.string.isRequired,
+      updateddate: PropTypes.string.isRequired,
+      recordstatusid: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired
+    }).isRequired).isRequired,
     handleSubmit: PropTypes.func.isRequired
   }
 
   render() {
-    const {handleSubmit} = this.props;
+    const {handleSubmit, lookups} = this.props;
     return (
       <div>
         <form onSubmit={handleSubmit}>
@@ -60,9 +69,11 @@ export default class PatientForm extends Component {
               <label htmlFor="title">Title</label>
               <Field name="title" component="select" className="form-control">
                 <option>Title</option>
-                <option value="0">Mr.</option>
-                <option value="1">Mrs.</option>
-                <option value="2">Ms.</option>
+                {
+                  lookups.map(lookup =>
+                    <option value={lookup.lookupvalue}>{lookup.lookuptext}</option>
+                  )
+                }
               </Field>
             </div>
           </div>
