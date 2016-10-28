@@ -13,6 +13,9 @@ const LOGOUT_FAIL = 'redux-example/auth/LOGOUT_FAIL';
 const REGISTER = 'redux-example/auth/REGISTER';
 const REGISTER_SUCCESS = 'redux-example/auth/REGISTER_SUCCESS';
 const REGISTER_FAIL = 'redux-example/auth/REGISTER_FAIL';
+const VALIDATE_USERNAME = 'redux-example/auth/VALIDATE_USERNAME';
+const VALIDATE_USERNAME_SUCCESS = 'redux-example/auth/VALIDATE_USERNAME_SUCCESS';
+const VALIDATE_USERNAME_FAIL = 'redux-example/auth/VALIDATE_USERNAME_FAIL';
 
 const initialState = {
   loaded: false
@@ -21,6 +24,25 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   const {result, error} = action;
   switch (action.type) {
+    case VALIDATE_USERNAME:
+      return {
+        ...state,
+        validatingUsername: true
+      };
+    case VALIDATE_USERNAME_SUCCESS:
+      return {
+        ...state,
+        validatingUsername: false,
+        usernameValidated: true,
+        isUsernameValid: result.isValid
+      };
+    case VALIDATE_USERNAME_FAIL:
+      return {
+        ...state,
+        validatingUsername: false,
+        usernameValidated: false,
+        errorValidatingUsername: error
+      };
     case LOAD:
       return {
         ...state,
@@ -146,6 +168,17 @@ export function register(data) {
     types: [REGISTER, REGISTER_SUCCESS, REGISTER_FAIL],
     promise: (client) => client.post('/users', {
       data: data
+    })
+  };
+}
+
+export function validateUsername(username) {
+  return {
+    types: [VALIDATE_USERNAME, VALIDATE_USERNAME_SUCCESS, VALIDATE_USERNAME_FAIL],
+    promise: (client) => client.post('/users/validateusername', {
+      params: {
+        username
+      }
     })
   };
 }

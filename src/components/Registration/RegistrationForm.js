@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Link } from 'react-router';
 import zxcvbn from 'zxcvbn';
+import * as authActions from 'redux/modules/auth';
 import { connect } from 'react-redux';
 
 const requiredValidation = (values, fields) => {
@@ -12,6 +13,26 @@ const requiredValidation = (values, fields) => {
     }
   }
   return errors;
+};
+
+const asyncValidate = (values, dispacth, {validateUsername}) => {
+  const validate = res => {
+    return new Promise((resolve, reject) => {
+      const errors = {
+        username: 'Username is already used'
+      };
+      if (!res.isValid) {
+        reject(errors);
+      }
+      return resolve();
+    });
+  };
+
+  if (!values.username) {
+    return Promise.resolve({});
+  }
+  return validateUsername(values.username)
+          .then(validate);
 };
 
 const validate = values => {
@@ -30,12 +51,14 @@ const validate = values => {
   return {...requiredValidation(values, fields), ...errors };
 };
 
-const renderField = ({ input, meta: { touched, error, warning }, ...rest }) => {
+const renderField = ({ input, meta: { asyncValidating, touched, error, warning }, ...rest }) => {
   const regStyles = require('./RegistrationForm.scss');
   return (
     <div className={(input.name === 'password' ? regStyles.marginBottom8px : '') + ' form-group' + (error && touched ? ' has-error' : '')}>
       <div className="col-xs-12">
         <input {...input} {...rest} />
+        {input.name === 'username' && asyncValidating && <i className="fa fa-cog fa-spin" />}
+        {input.name === 'username' && asyncValidating && ' Validating...'}
         {touched && ((error && <span className={regStyles.error}>{error}</span>) || (warning && <span className="warning">{warning}</span>))}
       </div>
     </div>
@@ -46,10 +69,12 @@ const selector = formValueSelector('Registration');
 
 @connect(state => ({
   password: selector(state, 'password')
-}))
+}), {...authActions})
 @reduxForm({
   form: 'Registration',
-  validate
+  validate,
+  asyncValidate,
+  asyncBlurFields: ['username']
 })
 export default class RegistrationForm extends Component {
   static propTypes = {
