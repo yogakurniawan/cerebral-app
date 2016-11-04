@@ -6,10 +6,10 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import { connect } from 'react-redux';
+import styles from 'common/Common.scss';
 // import { Link } from 'react-router';
 
 const renderField = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
-  const styles = require('common/Common.scss');
   return (
     <FormGroup controlId={input.name} className={(error && touched ? ' has-error' : '')}>
       <ControlLabel>{label}</ControlLabel>
@@ -20,7 +20,6 @@ const renderField = ({ input, label, meta: { touched, error, warning }, ...rest 
 };
 
 const renderCheckbox = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
-  const styles = require('common/Common.scss');
   return (
     <div className="checkbox checkbox-primary" style={{marginTop: 30}}>
       <FormControl {...input} {...rest} />

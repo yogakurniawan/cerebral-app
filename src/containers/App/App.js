@@ -19,6 +19,7 @@ import { push } from 'react-router-redux';
 import config from '../../config';
 import { asyncConnect } from 'redux-async-connect';
 import Cookie from 'js-cookie';
+import styles from './App.scss';
 
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
@@ -68,7 +69,6 @@ export default class App extends Component {
 
   render() {
     const {user} = this.props;
-    const styles = require('./App.scss');
 
     return (
       <div className={styles.app}>

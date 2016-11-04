@@ -4,6 +4,8 @@ import { Link } from 'react-router';
 import zxcvbn from 'zxcvbn';
 import * as authActions from 'redux/modules/auth';
 import { connect } from 'react-redux';
+import commonStyles from 'common/Common.scss';
+import regStyles from './RegistrationForm.scss';
 
 const requiredValidation = (values, fields) => {
   const errors = {};
@@ -52,14 +54,13 @@ const validate = values => {
 };
 
 const renderField = ({ input, meta: { asyncValidating, touched, error, warning }, ...rest }) => {
-  const regStyles = require('./RegistrationForm.scss');
   return (
     <div className={(input.name === 'password' ? regStyles.marginBottom8px : '') + ' form-group' + (error && touched ? ' has-error' : '')}>
       <div className="col-xs-12">
         <input {...input} {...rest} />
         {input.name === 'username' && asyncValidating && <i className="fa fa-cog fa-spin" />}
         {input.name === 'username' && asyncValidating && ' Validating...'}
-        {touched && ((error && <span className={regStyles.error}>{error}</span>) || (warning && <span className="warning">{warning}</span>))}
+        {touched && ((error && <span className={commonStyles.error}>{error}</span>) || (warning && <span className="warning">{warning}</span>))}
       </div>
     </div>
   );
@@ -102,7 +103,6 @@ export default class RegistrationForm extends Component {
   render() {
     const {submitting, handleSubmit, password} = this.props;
     const styles = require('containers/Login/Login.scss');
-    const regStyles = require('./RegistrationForm.scss');
     let registerButtonText = 'GET STARTED';
     let className = '';
     let strengthLiteral = '';

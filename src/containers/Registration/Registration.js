@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as authActions from 'redux/modules/auth';
 import NotificationSystem from 'react-notification-system';
 import { push } from 'react-router-redux';
+import styles from '../Login/Login.scss';
 
 @connect(undefined, {...authActions, pushState: push})
 export default class Registration extends Component {
@@ -29,7 +30,6 @@ export default class Registration extends Component {
   }
 
   render() {
-    const styles = require('../Login/Login.scss');
     return (
       <div className={styles.loginPage + ' container'}>
         <Helmet title="Registration" />
