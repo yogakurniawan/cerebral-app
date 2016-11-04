@@ -41,7 +41,7 @@ app.use('/api', (req, res) => {
 });
 
 setInterval(() => {
-  http.get('https://cerebral-app.herokuapp.com');
+  http.get('cerebral-app.herokuapp.com');
   console.log('PING => https://cerebral-app.herokuapp.com');
 }, 300000); // every 5 minutes (300000)
 app.use(cookieParser());
