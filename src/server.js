@@ -46,7 +46,7 @@ setInterval(() => {
   https.get('https://cerebral-api.herokuapp.com');
   console.log('PING => https://cerebral-app.herokuapp.com');
   console.log('PING => https://cerebral-api.herokuapp.com');
-}, 3000); // every 5 minutes (300000)
+}, 300000); // every 5 minutes (300000)
 app.use(cookieParser());
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
