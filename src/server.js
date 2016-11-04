@@ -19,7 +19,7 @@ import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
 import createHistory from 'react-router/lib/createMemoryHistory';
 import {Provider} from 'react-redux';
 import getRoutes from './routes';
-
+require('newrelic');
 const loopbackApiUrl = config.apiHost + '/api';
 const pretty = new PrettyError();
 const app = new Express();

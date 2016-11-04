@@ -52,7 +52,6 @@ function initSocket() {
   return socket;
 }
 
-require('newrelic');
 global.socket = initSocket();
 
 const component = (
