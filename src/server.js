@@ -40,6 +40,10 @@ app.use('/api', (req, res) => {
   proxy.web(req, res, { target: loopbackApiUrl });
 });
 
+setInterval(() => {
+  http.get('https://cerebral-app.herokuapp.com');
+  console.log('PING => https://cerebral-app.herokuapp.com');
+}, 300000); // every 5 minutes (300000)
 app.use(cookieParser());
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
