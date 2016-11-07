@@ -17,36 +17,36 @@ const requiredValidation = (values, fields) => {
   return errors;
 };
 
-const asyncValidate = (values, dispacth, {validateEmail, touch}) => {
-  console.log(touch);
-  // const validate = res => {
-  //   return new Promise((resolve, reject) => {
-  //     if (!res.isValid) {
-  //       if (props.form._active === 'username') {
-  //         reject({
-  //           username: 'Username is already used'
-  //         });
-  //       } else {
-  //         reject({
-  //           email: 'Email is already used'
-  //         });
-  //       }
-  //     }
-  //     return resolve();
-  //   });
-  // };
+const asyncValidate = (values, dispacth, {validateUsername, validateEmail, form}) => {
+  console.log(form);
+  const validate = res => {
+    return new Promise((resolve, reject) => {
+      if (!res.isValid) {
+        if (form._active === 'username') {
+          reject({
+            username: 'Username is already used'
+          });
+        } else {
+          reject({
+            email: 'Email is already used'
+          });
+        }
+      }
+      return resolve();
+    });
+  };
 
-  // if (!values.username || !values.email) {
-  //   return Promise.resolve({});
-  // }
+  if (!values.username || !values.email) {
+    return Promise.resolve({});
+  }
 
-  // if (props.form._active === 'username') {
-  //   return validateUsername(values.username)
-  //     .then(validate);
-  // }
+  if (form._active === 'username') {
+    return validateUsername(values.username)
+      .then(validate);
+  }
 
-  // return validateEmail(values.email)
-  //   .then(validate);
+  return validateEmail(values.email)
+    .then(validate);
 };
 
 const validate = values => {
