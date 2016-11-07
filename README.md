@@ -4,7 +4,7 @@
 
 ---
 
-[<img src="https://storage.googleapis.com/cerebral/cerebral-logo.png" align="center" class="logo" height="160" width="150"/>](https://cerebral-app.herokuapp.com)
+[<img src="cerebral-logo.png" align="center" class="logo" height="160" width="150"/>](https://cerebral-app.herokuapp.com)
 
 ## About
 
