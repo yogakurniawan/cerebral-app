@@ -17,36 +17,49 @@ const requiredValidation = (values, fields) => {
   return errors;
 };
 
-const asyncValidate = (values, dispacth, {validateUsername, validateEmail, form}) => {
-  console.log(form);
-  const validate = res => {
-    return new Promise((resolve, reject) => {
-      if (!res.isValid) {
-        if (form._active === 'username') {
-          reject({
-            username: 'Username is already used'
-          });
-        } else {
-          reject({
-            email: 'Email is already used'
-          });
-        }
-      }
-      return resolve();
-    });
-  };
+const combineErrors = (newErrors, oldErrors) => {
+  const oE = oldErrors;
+  return {...oE, ...newErrors};
+};
 
-  if (!values.username || !values.email) {
-    return Promise.resolve({});
-  }
-
-  if (form._active === 'username') {
+const asyncValidate = (values, dispacth, props, currentField) => {
+  const { validateUsername, validateEmail, asyncErrors } = props;
+  const oldErrors = asyncErrors || {};
+  if (currentField === 'username') {
     return validateUsername(values.username)
-      .then(validate);
+      .then((res) => {
+        const errors = {};
+        if (!res.isValid) {
+          errors.username = 'Username is already used';
+        }
+        const combo = combineErrors(errors, oldErrors, currentField);
+        return new Promise((resolve, reject) => {
+          if (Object.keys(combo).length > 0) {
+            reject(combo);
+          } else {
+            resolve();
+          }
+        });
+      });
   }
 
-  return validateEmail(values.email)
-    .then(validate);
+  if (currentField === 'email') {
+    return validateEmail(values.email)
+      .then((res) => {
+        const errors = {};
+        if (!res.isValid) {
+          errors.email = 'Email is already used';
+        }
+        const combo = combineErrors(errors, oldErrors, currentField);
+        return new Promise((resolve, reject) => {
+          if (Object.keys(combo).length > 0) {
+            reject(combo);
+          } else {
+            resolve();
+          }
+        });
+      });
+  }
 };
 
 const validate = values => {
@@ -66,12 +79,13 @@ const validate = values => {
 };
 
 const renderField = ({ input, meta: { asyncValidating, touched, error, warning }, ...rest }) => {
+  console.log(input.name);
   return (
     <div className={(input.name === 'password' ? regStyles.marginBottom8px : '') + ' form-group' + (error && touched ? ' has-error' : '')}>
       <div className="col-xs-12">
         <input {...input} {...rest} />
-        {input.name === 'username' || input.name === 'email' && asyncValidating && <i className="fa fa-cog fa-spin" />}
-        {input.name === 'username' || input.name === 'email' && asyncValidating && ' Validating...'}
+        {(input.name === 'username' || input.name === 'email') && asyncValidating && <i className="fa fa-cog fa-spin" />}
+        {(input.name === 'username' || input.name === 'email') && asyncValidating && ' Validating...'}
         {touched && ((error && <span className={commonStyles.error}>{error}</span>) || (warning && <span className="warning">{warning}</span>))}
       </div>
     </div>
@@ -93,7 +107,8 @@ export default class RegistrationForm extends Component {
   static propTypes = {
     submitting: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    password: PropTypes.string
+    password: PropTypes.string,
+    formState: PropTypes.object
   }
 
   getStrengthClassName = {

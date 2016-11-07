@@ -12,7 +12,7 @@ import ApiClient from './helpers/ApiClient';
 import Html from './helpers/Html';
 import PrettyError from 'pretty-error';
 import http from 'http';
-// import https from 'https';
+import https from 'https';
 
 import { match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -41,12 +41,12 @@ app.use('/api', (req, res) => {
   proxy.web(req, res, { target: loopbackApiUrl });
 });
 
-// setInterval(() => {
-//   https.get('https://cerebral-app.herokuapp.com');
-//   https.get('https://cerebral-api.herokuapp.com');
-//   console.log('PING => https://cerebral-app.herokuapp.com');
-//   console.log('PING => https://cerebral-api.herokuapp.com');
-// }, 300000); // every 5 minutes (300000)
+setInterval(() => {
+  https.get('https://cerebral-app.herokuapp.com');
+  https.get('https://cerebral-api.herokuapp.com');
+  console.log('PING => https://cerebral-app.herokuapp.com');
+  console.log('PING => https://cerebral-api.herokuapp.com');
+}, 300000); // every 5 minutes (300000)
 app.use(cookieParser());
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527

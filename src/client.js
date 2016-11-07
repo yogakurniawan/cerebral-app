@@ -13,7 +13,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect } from 'redux-async-connect';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
 import throttle from 'lodash/throttle';
-import { saveState, loadState } from 'utils/localStorage';
+import { saveState } from 'utils/localStorage';
 import getRoutes from './routes';
 import config from './config';
 
@@ -31,8 +31,6 @@ store.subscribe(throttle(() => {
       loginInfo: store.getState().auth.loginInfo
     }
   });
-  console.log(loadState());
-  console.log(store.getState().auth.user);
 }, 1000));
 
 
