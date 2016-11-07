@@ -17,24 +17,36 @@ const requiredValidation = (values, fields) => {
   return errors;
 };
 
-const asyncValidate = (values, dispacth, {validateUsername}) => {
-  const validate = res => {
-    return new Promise((resolve, reject) => {
-      const errors = {
-        username: 'Username is already used'
-      };
-      if (!res.isValid) {
-        reject(errors);
-      }
-      return resolve();
-    });
-  };
+const asyncValidate = (values, dispacth, {validateEmail, touch}) => {
+  console.log(touch);
+  // const validate = res => {
+  //   return new Promise((resolve, reject) => {
+  //     if (!res.isValid) {
+  //       if (props.form._active === 'username') {
+  //         reject({
+  //           username: 'Username is already used'
+  //         });
+  //       } else {
+  //         reject({
+  //           email: 'Email is already used'
+  //         });
+  //       }
+  //     }
+  //     return resolve();
+  //   });
+  // };
 
-  if (!values.username) {
-    return Promise.resolve({});
-  }
-  return validateUsername(values.username)
-          .then(validate);
+  // if (!values.username || !values.email) {
+  //   return Promise.resolve({});
+  // }
+
+  // if (props.form._active === 'username') {
+  //   return validateUsername(values.username)
+  //     .then(validate);
+  // }
+
+  // return validateEmail(values.email)
+  //   .then(validate);
 };
 
 const validate = values => {
@@ -58,8 +70,8 @@ const renderField = ({ input, meta: { asyncValidating, touched, error, warning }
     <div className={(input.name === 'password' ? regStyles.marginBottom8px : '') + ' form-group' + (error && touched ? ' has-error' : '')}>
       <div className="col-xs-12">
         <input {...input} {...rest} />
-        {input.name === 'username' && asyncValidating && <i className="fa fa-cog fa-spin" />}
-        {input.name === 'username' && asyncValidating && ' Validating...'}
+        {input.name === 'username' || input.name === 'email' && asyncValidating && <i className="fa fa-cog fa-spin" />}
+        {input.name === 'username' || input.name === 'email' && asyncValidating && ' Validating...'}
         {touched && ((error && <span className={commonStyles.error}>{error}</span>) || (warning && <span className="warning">{warning}</span>))}
       </div>
     </div>
@@ -75,7 +87,7 @@ const selector = formValueSelector('Registration');
   form: 'Registration',
   validate,
   asyncValidate,
-  asyncBlurFields: ['username']
+  asyncBlurFields: ['username', 'email']
 })
 export default class RegistrationForm extends Component {
   static propTypes = {
@@ -118,7 +130,7 @@ export default class RegistrationForm extends Component {
     return (
       <div>
         <form className="form-horizontal" onSubmit={handleSubmit}>
-          <div className={styles.appLogo}><img src="https://storage.googleapis.com/cerebral/cerebral-app-logo.svg" /></div>
+          <div className={styles.appLogo}><img src="https://storage.googleapis.com/cerebral/cerebral-logo.png" /></div>
           <Field name="firstname" maxLength="100" type="text" component={renderField} className="form-control" placeholder="First Name" />
           <Field name="lastname" maxLength="100" type="text" component={renderField} className="form-control" placeholder="Last Name" />
           <Field name="username" maxLength="100" type="text" component={renderField} className="form-control" placeholder="Username" />

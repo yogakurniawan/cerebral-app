@@ -34,16 +34,11 @@ export default (store, token) => {
     }
   };
 
-  const requestAuth = (nextState, replace, cb) => {
-    if (!isAuthLoaded(store.getState()) && token) {
-      store.dispatch(loadAuth())
-        .then(cb)
-        .catch(() => {
-          replace('/');
-        });
-    } else {
-      cb();
+  const isLoggedIn = (nextState, replace, cb) => {
+    if (token) {
+      replace('/home');
     }
+    cb();
   };
 
   /**
@@ -62,13 +57,13 @@ export default (store, token) => {
       </Route>
 
       { /* Routes */ }
-      <Route onEnter={requestAuth}>
-        <Route path="login" component={Login}/>
-        <Route path="registerSuccess" component={RegistrationSuccess}/>
-        <Route path="emailVerified" component={EmailVerified}/>
+      <Route onEnter={isLoggedIn}>
+      <Route path="login" component={Login}/>
         <Route path="register" component={Registration}/>
         <Route path="survey" component={Survey}/>
         <Route path="widgets" component={Widgets}/>
+        <Route path="registerSuccess" component={RegistrationSuccess}/>
+        <Route path="emailVerified" component={EmailVerified}/>
       </Route>
 
       { /* Catch all route */ }

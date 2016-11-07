@@ -16,6 +16,9 @@ const REGISTER_FAIL = 'redux-example/auth/REGISTER_FAIL';
 const VALIDATE_USERNAME = 'redux-example/auth/VALIDATE_USERNAME';
 const VALIDATE_USERNAME_SUCCESS = 'redux-example/auth/VALIDATE_USERNAME_SUCCESS';
 const VALIDATE_USERNAME_FAIL = 'redux-example/auth/VALIDATE_USERNAME_FAIL';
+const VALIDATE_EMAIL = 'redux-example/auth/VALIDATE_EMAIL';
+const VALIDATE_EMAIL_SUCCESS = 'redux-example/auth/VALIDATE_EMAIL_SUCCESS';
+const VALIDATE_EMAIL_FAIL = 'redux-example/auth/VALIDATE_EMAIL_FAIL';
 
 const initialState = {
   loaded: false
@@ -24,6 +27,25 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   const {result, error} = action;
   switch (action.type) {
+    case VALIDATE_EMAIL:
+      return {
+        ...state,
+        validatingEmail: true
+      };
+    case VALIDATE_EMAIL_SUCCESS:
+      return {
+        ...state,
+        validatingEmail: false,
+        emailValidated: true,
+        isEmailValid: result.isValid
+      };
+    case VALIDATE_EMAIL_FAIL:
+      return {
+        ...state,
+        validatingEmail: false,
+        emailValidated: false,
+        errorValidatingEmail: error
+      };
     case VALIDATE_USERNAME:
       return {
         ...state,
@@ -178,6 +200,17 @@ export function validateUsername(username) {
     promise: (client) => client.post('/users/validateusername', {
       params: {
         username
+      }
+    })
+  };
+}
+
+export function validateEmail(email) {
+  return {
+    types: [VALIDATE_EMAIL, VALIDATE_EMAIL_SUCCESS, VALIDATE_EMAIL_FAIL],
+    promise: (client) => client.post('/users/validateemail', {
+      params: {
+        email
       }
     })
   };
