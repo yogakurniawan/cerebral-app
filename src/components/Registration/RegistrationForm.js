@@ -19,7 +19,7 @@ const requiredValidation = (values, fields) => {
 
 const combineErrors = (newErrors, oldErrors) => {
   const oE = oldErrors;
-  return {...oE, ...newErrors};
+  return {...oE, ...newErrors };
 };
 
 const asyncValidate = (values, dispacth, props, currentField) => {
@@ -27,7 +27,7 @@ const asyncValidate = (values, dispacth, props, currentField) => {
   const oldErrors = asyncErrors || {};
   if (currentField === 'username') {
     return validateUsername(values.username)
-      .then((res) => {
+      .then(res => {
         const errors = {};
         if (!res.isValid) {
           errors.username = 'Username is already used';
@@ -43,23 +43,21 @@ const asyncValidate = (values, dispacth, props, currentField) => {
       });
   }
 
-  if (currentField === 'email') {
-    return validateEmail(values.email)
-      .then((res) => {
-        const errors = {};
-        if (!res.isValid) {
-          errors.email = 'Email is already used';
+  return validateEmail(values.email)
+    .then(res => {
+      const errors = {};
+      if (!res.isValid) {
+        errors.email = 'Email is already used';
+      }
+      const combo = combineErrors(errors, oldErrors, currentField);
+      return new Promise((resolve, reject) => {
+        if (Object.keys(combo).length > 0) {
+          reject(combo);
+        } else {
+          resolve();
         }
-        const combo = combineErrors(errors, oldErrors, currentField);
-        return new Promise((resolve, reject) => {
-          if (Object.keys(combo).length > 0) {
-            reject(combo);
-          } else {
-            resolve();
-          }
-        });
       });
-  }
+    });
 };
 
 const validate = values => {
