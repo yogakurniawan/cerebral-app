@@ -1,14 +1,14 @@
 {
-  "name": "react-fullstack",
+  "name": "cerebral-app",
   "description": "Example of an isomorphic (universal) webapp using react redux and hot reloading",
   "author": "Yoga Kurniawan <yogaygk@gmail.com> (http://github.com/yogakurniawan)",
   "license": "MIT",
-  "version": "0.9.0",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yogakurniawan/react-fullstack"
+    "url": "https://github.com/yogakurniawan/cerebral-app"
   },
-  "homepage": "https://github.com/yogakurniawan/react-fullstack",
+  "homepage": "https://github.com/yogakurniawan/cerebral-app",
   "keywords": [
     "react",
     "isomorphic",
@@ -117,6 +117,7 @@
     "react": "^0.14.2",
     "react-bootstrap": "^0.30.5",
     "react-datepicker": "^0.32.0",
+    "react-datetime": "^2.6.2",
     "react-dom": "^0.14.1",
     "react-helmet": "^2.2.0",
     "react-inline-css": "^2.0.0",

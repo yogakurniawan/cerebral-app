@@ -7,6 +7,7 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import { connect } from 'react-redux';
 import styles from 'common/Common.scss';
+import DateTime from 'react-datetime';
 // import { Link } from 'react-router';
 
 const renderField = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
@@ -21,7 +22,7 @@ const renderField = ({ input, label, meta: { touched, error, warning }, ...rest 
 
 const renderCheckbox = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
   return (
-    <div className="checkbox checkbox-primary" style={{marginTop: 30}}>
+    <div className="checkbox checkbox-primary" style={{ marginTop: 30 }}>
       <FormControl {...input} {...rest} />
       <ControlLabel>{label}</ControlLabel>
       {touched && ((error && <span className={styles.error}>{error}</span>) || (warning && <span className="warning">{warning}</span>))}
@@ -29,7 +30,7 @@ const renderCheckbox = ({ input, label, meta: { touched, error, warning }, ...re
   );
 };
 
-@connect(state => ({lookups: state.lookups.data}))
+@connect(state => ({ lookups: state.lookups.data }))
 @reduxForm({
   form: 'Patient'
 })
@@ -100,6 +101,11 @@ export default class PatientForm extends Component {
             </div>
             <div className="col-xs-3">
               <Field name="onenameonly" type="checkbox" className="styled" component={renderCheckbox} label="One Name Only" />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-6">
+              <DateTime />
             </div>
           </div>
         </form>
