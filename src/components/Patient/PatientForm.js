@@ -20,6 +20,16 @@ const renderField = ({ input, label, meta: { touched, error, warning }, ...rest 
   );
 };
 
+const renderDateInput = ({ input, label, meta: { touched, error, warning }, placeholder}) => {
+  return (
+    <FormGroup controlId={input.name} className={(error && touched ? ' has-error' : '')}>
+      <ControlLabel>{label}</ControlLabel>
+      <DateTime inputProps={{ name: input.name, placeholder: placeholder }} />
+      {touched && ((error && <span className={styles.error}>{error}</span>) || (warning && <span className="warning">{warning}</span>))}
+    </FormGroup>
+  );
+};
+
 const renderCheckbox = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
   return (
     <div className="checkbox checkbox-primary" style={{ marginTop: 30 }}>
@@ -52,6 +62,9 @@ export default class PatientForm extends Component {
 
   render() {
     const {handleSubmit, lookups} = this.props;
+    const TITLE_LOOKUP = 'titleid';
+    const GENDER_LOOKUP = 'GenderCode';
+    const ETHNICITY_LOOKUP = 'EthinicityID';
     return (
       <div>
         <form onSubmit={handleSubmit}>
@@ -67,45 +80,78 @@ export default class PatientForm extends Component {
             </div>
           </div>
           <div className="row">
-            <div className="col-xs-2">
+            <div className="col-xs-12 col-sm-2">
               <label htmlFor="title">Title</label>
               <Field name="title" component="select" className="form-control">
-                <option>Title</option>
+                <option value="0">Title</option>
                 {
-                  lookups.map(lookup =>
+                  lookups.filter(fLookup => {
+                    return fLookup.lookupname === TITLE_LOOKUP;
+                  }).map(lookup =>
                     <option value={lookup.lookupvalue} key={lookup.lookupvalue}>{lookup.lookuptext}</option>
-                  )
+                    )
                 }
               </Field>
             </div>
           </div>
           <div className="row">
-            <div className="col-xs-3">
-              <Field name="firstname" label="First Name" maxLength="100" type="text" component={renderField} className="form-control" placeholder="First Name" />
+            <div className="col-xs-12 col-sm-3">
+              <Field name="firstname" label="First Name" maxLength="100" type="text" component={renderField} placeholder="First Name" />
             </div>
-            <div className="col-xs-3">
-              <Field name="middlename" label="Middle Name" maxLength="100" type="text" component={renderField} className="form-control" placeholder="Middle Name" />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xs-3">
-              <Field name="lastname" label="First Name" maxLength="100" type="text" component={renderField} className="form-control" placeholder="Last Name" />
-            </div>
-            <div className="col-xs-3">
-              <Field name="preferredname" label="Preferred Name" maxLength="100" type="text" component={renderField} className="form-control" placeholder="Preferred Name" />
+            <div className="col-xs-12 col-sm-3">
+              <Field name="middlename" label="Middle Name" maxLength="100" type="text" component={renderField} placeholder="Middle Name" />
             </div>
           </div>
           <div className="row">
-            <div className="col-xs-3">
-              <Field name="previouslyknownas" label="Previously Known As" maxLength="100" type="text" component={renderField} className="form-control" placeholder="Previously Known As" />
+            <div className="col-xs-12 col-sm-3">
+              <Field name="lastname" label="First Name" maxLength="100" type="text" component={renderField} placeholder="Last Name" />
             </div>
-            <div className="col-xs-3">
+            <div className="col-xs-12 col-sm-3">
+              <Field name="preferredname" label="Preferred Name" maxLength="100" type="text" component={renderField} placeholder="Preferred Name" />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12 col-sm-3">
+              <Field name="previouslyknownas" label="Previously Known As" maxLength="100" type="text" component={renderField} placeholder="Previously Known As" />
+            </div>
+            <div className="col-xs-12 col-sm-3">
               <Field name="onenameonly" type="checkbox" className="styled" component={renderCheckbox} label="One Name Only" />
             </div>
           </div>
           <div className="row">
-            <div className="col-xs-6">
-              <DateTime />
+            <div className="col-xs-12 col-sm-3">
+              <Field name="dateofbirth" label="Date of Birth" maxLength="100" type="text" component={renderDateInput} placeholder="Date of Birth" />
+            </div>
+            <div className="col-xs-12 col-sm-3">
+              <label htmlFor="title">Gender</label>
+              <Field name="gender" component="select" className="form-control">
+                <option value="0">Gender</option>
+                {
+                  lookups.filter(gLookup => {
+                    return gLookup.lookupname === GENDER_LOOKUP;
+                  }).map(lookup =>
+                    <option value={lookup.lookupvalue} key={lookup.lookupvalue}>{lookup.lookuptext}</option>
+                    )
+                }
+              </Field>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12 col-sm-3">
+              <label htmlFor="title">Ethinicity</label>
+              <Field name="ethinicity" component="select" className="form-control">
+                <option value="0">Ethinicity</option>
+                {
+                  lookups.filter(ethLookup => {
+                    return ethLookup.lookupname === ETHNICITY_LOOKUP;
+                  }).map(lookup =>
+                    <option value={lookup.lookupvalue} key={lookup.lookupvalue}>{lookup.lookuptext}</option>
+                    )
+                }
+              </Field>
+            </div>
+            <div className="col-xs-12 col-sm-3">
+              <Field name="englishis2ndlanguage" type="checkbox" className="styled" component={renderCheckbox} label="English is a second language" />
             </div>
           </div>
         </form>
