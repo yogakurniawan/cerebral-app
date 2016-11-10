@@ -116,7 +116,6 @@
     "pretty-error": "^1.2.0",
     "react": "^0.14.2",
     "react-bootstrap": "^0.30.5",
-    "react-bootstrap-datetimepicker": "0.0.22",
     "react-dom": "^0.14.1",
     "react-helmet": "^2.2.0",
     "react-inline-css": "^2.0.0",
@@ -137,7 +136,9 @@
     "url-loader": "^0.5.7",
     "warning": "^2.1.0",
     "webpack-isomorphic-tools": "^2.2.18",
-    "zxcvbn": "^4.4.0"
+    "zxcvbn": "^4.4.0",
+    "classnames": "^2.1.2",
+    "moment": "^2.8.2"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
