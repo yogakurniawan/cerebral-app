@@ -7,7 +7,7 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import { connect } from 'react-redux';
 import styles from 'common/Common.scss';
-import DateTime from 'react-datetime';
+import DateTimeField from 'react-bootstrap-datetimepicker';
 // import { Link } from 'react-router';
 
 const renderField = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
@@ -20,11 +20,11 @@ const renderField = ({ input, label, meta: { touched, error, warning }, ...rest 
   );
 };
 
-const renderDateInput = ({ input, label, meta: { touched, error, warning }, placeholder}) => {
+const renderDateInput = ({ input, label, meta: { touched, error, warning }}) => {
   return (
     <FormGroup controlId={input.name} className={(error && touched ? ' has-error' : '')}>
       <ControlLabel>{label}</ControlLabel>
-      <DateTime inputProps={{ name: input.name, placeholder: placeholder }} />
+      <DateTimeField {...input} />
       {touched && ((error && <span className={styles.error}>{error}</span>) || (warning && <span className="warning">{warning}</span>))}
     </FormGroup>
   );
