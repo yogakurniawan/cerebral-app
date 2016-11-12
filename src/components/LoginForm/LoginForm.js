@@ -27,13 +27,13 @@ export default class LoginForm extends Component {
           <div className={styles.appLogo}><img src="https://storage.googleapis.com/cerebral/cerebral-logo.png" /></div>
           <div className="form-group">
             <div className="input-group">
-              <span className="input-group-addon" id="username-addon"><i className={'fa fa-at ' + styles.faAt + ' ' + commonSytles.colorPrimary} /></span>
+              <span className="input-group-addon" id="username-addon"><i className={'glyphicon glyphicon-user ' + commonSytles.colorPrimary} /></span>
               <Field name="username" maxLength="100" component="input" aria-describedby="username-addon" type="text" id="login-username" placeholder="Username" className="form-control" />
             </div>
           </div>
           <div className="form-group">
             <div className="input-group">
-              <span className="input-group-addon" id="password-addon"><i className={'fa fa-lock ' + styles.faLock + ' ' + commonSytles.colorPrimary} /></span>
+              <span className="input-group-addon" id="password-addon"><i className={'glyphicon glyphicon-lock ' + commonSytles.colorPrimary} /></span>
               <Field name="password" component="input" aria-describedby="password-addon" type="password" id="login-password" placeholder="Password" className="form-control" />
             </div>
           </div>
