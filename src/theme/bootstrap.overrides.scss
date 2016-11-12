@@ -21,6 +21,7 @@
 }
 
 .navbar-default {
+  background-color: #fff;
   .navbar-nav {
     > li:hover, .active {
       > a, a:hover, a:focus {
@@ -43,4 +44,13 @@ html {
 
 .input-group-addon {
   background-color: #fff;
+}
+
+.nav-tabs {
+  border-bottom: none;
+  > li.active {
+    > a, a:focus {
+      background-color: #e2e2e2;
+    }
+  }
 }

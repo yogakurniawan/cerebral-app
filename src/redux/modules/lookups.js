@@ -1,6 +1,9 @@
 const LOAD_LOOKUP = 'redux-example/lookup/LOAD';
 const LOAD_LOOKUP_SUCCESS = 'redux-example/lookup/LOAD_SUCCESS';
 const LOAD_LOOKUP_FAIL = 'redux-example/lookup/LOAD_FAIL';
+const TITLE_LOOKUP = 'titleid';
+const GENDER_LOOKUP = 'GenderCode';
+const ETHNICITY_LOOKUP = 'EthinicityID';
 
 const initialState = {
   loaded: false
@@ -15,11 +18,16 @@ export default function reducer(state = initialState, action = {}) {
         loading: true
       };
     case LOAD_LOOKUP_SUCCESS:
+      const ethnicity = result.filter(ethLookup => (ethLookup.lookupname === ETHNICITY_LOOKUP));
+      const title = result.filter(titleLookup => (titleLookup.lookupname === TITLE_LOOKUP));
+      const gender = result.filter(genderLookup => (genderLookup.lookupname === GENDER_LOOKUP));
       return {
         ...state,
         loading: false,
         loaded: true,
-        data: result
+        ethnicity,
+        title,
+        gender
       };
     case LOAD_LOOKUP_FAIL:
       return {

@@ -142,7 +142,7 @@ export default class DateTimeField extends Component {
       classes.bottom = false;
       classes['pull-right'] = true;
     } else {
-      offset.top = 40;
+      offset.top = 57;
       classes.top = false;
       classes.bottom = true;
       classes['pull-right'] = true;
@@ -152,7 +152,7 @@ export default class DateTimeField extends Component {
       position: 'absolute',
       top: offset.top,
       left: 'auto',
-      right: 40
+      right: 24
     };
     return this.setState({
       widgetStyle: styles,

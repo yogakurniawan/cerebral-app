@@ -10,6 +10,9 @@ import {
     TodoList,
     Survey,
     Patients,
+    PatientDemographic,
+    PatientAlcohol,
+    PatientSocial,
     NotFound,
   } from 'containers';
 import {RegistrationSuccess, EmailVerified} from 'components';
@@ -53,7 +56,11 @@ export default (store, token) => {
       <Route onEnter={requireLogin}>
         <Route path="todo" component={TodoList}/>
         <Route path="home" component={Home}/>
-        <Route path="patients" component={Patients}/>
+        <Route path="patients" component={Patients}>
+          <Route path="demographic" component={PatientDemographic} />
+          <Route path="alcohol" component={PatientAlcohol} />
+          <Route path="social" component={PatientSocial} />
+        </Route>
       </Route>
 
       { /* Routes */ }

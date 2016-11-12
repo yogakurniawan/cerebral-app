@@ -45,14 +45,38 @@ const renderCheckbox = ({ input, label, meta: { touched, error, warning }, ...re
   );
 };
 
-@connect(state => ({ lookups: state.lookups.data }))
+@connect(state => ({
+  ethnicity: state.lookups.ethnicity,
+  gender: state.lookups.gender,
+  title: state.lookups.title
+}))
 @reduxForm({
   form: 'Patient'
 })
 export default class PatientForm extends Component {
   static propTypes = {
     submitting: PropTypes.bool.isRequired,
-    lookups: PropTypes.arrayOf(PropTypes.shape({
+    ethnicity: PropTypes.arrayOf(PropTypes.shape({
+      lookupname: PropTypes.string.isRequired,
+      lookupvalue: PropTypes.number.isRequired,
+      lookuptext: PropTypes.string.isRequired,
+      displayorder: PropTypes.number.isRequired,
+      createddate: PropTypes.string.isRequired,
+      updateddate: PropTypes.string.isRequired,
+      recordstatusid: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired
+    }).isRequired).isRequired,
+    gender: PropTypes.arrayOf(PropTypes.shape({
+      lookupname: PropTypes.string.isRequired,
+      lookupvalue: PropTypes.number.isRequired,
+      lookuptext: PropTypes.string.isRequired,
+      displayorder: PropTypes.number.isRequired,
+      createddate: PropTypes.string.isRequired,
+      updateddate: PropTypes.string.isRequired,
+      recordstatusid: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired
+    }).isRequired).isRequired,
+    title: PropTypes.arrayOf(PropTypes.shape({
       lookupname: PropTypes.string.isRequired,
       lookupvalue: PropTypes.number.isRequired,
       lookuptext: PropTypes.string.isRequired,
@@ -66,14 +90,11 @@ export default class PatientForm extends Component {
   }
 
   render() {
-    const {handleSubmit, lookups} = this.props;
-    const TITLE_LOOKUP = 'titleid';
-    const GENDER_LOOKUP = 'GenderCode';
-    const ETHNICITY_LOOKUP = 'EthinicityID';
+    const {handleSubmit, ethnicity, title, gender} = this.props;
     return (
       <div>
         <form onSubmit={handleSubmit}>
-          <div className="row">
+          <div className="row" style={{marginBottom: 10}}>
             <div className="col-sm-9">
               <h4>Details</h4>
             </div>
@@ -90,9 +111,7 @@ export default class PatientForm extends Component {
               <Field name="title" component="select" className="form-control">
                 <option value="0">Title</option>
                 {
-                  lookups.filter(fLookup => {
-                    return fLookup.lookupname === TITLE_LOOKUP;
-                  }).map(lookup =>
+                  title.map(lookup =>
                     <option value={lookup.lookupvalue} key={lookup.lookupvalue}>{lookup.lookuptext}</option>
                     )
                 }
@@ -132,9 +151,7 @@ export default class PatientForm extends Component {
               <Field name="gender" component="select" className="form-control">
                 <option value="0">Gender</option>
                 {
-                  lookups.filter(gLookup => {
-                    return gLookup.lookupname === GENDER_LOOKUP;
-                  }).map(lookup =>
+                  gender.map(lookup =>
                     <option value={lookup.lookupvalue} key={lookup.lookupvalue}>{lookup.lookuptext}</option>
                     )
                 }
@@ -147,9 +164,7 @@ export default class PatientForm extends Component {
               <Field name="ethinicity" component="select" className="form-control">
                 <option value="0">Ethinicity</option>
                 {
-                  lookups.filter(ethLookup => {
-                    return ethLookup.lookupname === ETHNICITY_LOOKUP;
-                  }).map(lookup =>
+                  ethnicity.map(lookup =>
                     <option value={lookup.lookupvalue} key={lookup.lookupvalue}>{lookup.lookuptext}</option>
                     )
                 }

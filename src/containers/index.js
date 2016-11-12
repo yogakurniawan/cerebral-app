@@ -5,3 +5,6 @@ export NotFound from './NotFound/NotFound';
 export Registration from './Registration/Registration';
 export Home from './Home/Home';
 export Patients from './Patients/Patients';
+export PatientDemographic from './Patients/PatientDemographic';
+export PatientSocial from './Patients/PatientSocial';
+export PatientAlcohol from './Patients/PatientAlcohol';

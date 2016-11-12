@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import {Link} from 'react-router';
+import styles from 'containers/Login/Login.scss';
+import commonSytles from 'common/Common.scss';
 
 @reduxForm({
   form: 'Login'
@@ -13,7 +15,6 @@ export default class LoginForm extends Component {
 
   render() {
     const {submitting, handleSubmit} = this.props;
-    const styles = require('containers/Login/Login.scss');
     let loggingInClassName = 'fa fa-sign-in';
     let loginButtonText = 'SIGN IN TO YOUR ACCOUNT';
     if (submitting) {
@@ -26,13 +27,13 @@ export default class LoginForm extends Component {
           <div className={styles.appLogo}><img src="https://storage.googleapis.com/cerebral/cerebral-logo.png" /></div>
           <div className="form-group">
             <div className="input-group">
-              <span className="input-group-addon" id="username-addon"><i className={'fa fa-at ' + styles.faAt} /></span>
+              <span className="input-group-addon" id="username-addon"><i className={'fa fa-at ' + styles.faAt + ' ' + commonSytles.colorPrimary} /></span>
               <Field name="username" maxLength="100" component="input" aria-describedby="username-addon" type="text" id="login-username" placeholder="Username" className="form-control" />
             </div>
           </div>
           <div className="form-group">
             <div className="input-group">
-              <span className="input-group-addon" id="password-addon"><i className={'fa fa-lock ' + styles.faLock} /></span>
+              <span className="input-group-addon" id="password-addon"><i className={'fa fa-lock ' + styles.faLock + ' ' + commonSytles.colorPrimary} /></span>
               <Field name="password" component="input" aria-describedby="password-addon" type="password" id="login-password" placeholder="Password" className="form-control" />
             </div>
           </div>
