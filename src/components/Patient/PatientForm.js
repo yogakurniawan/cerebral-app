@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import Button from 'react-bootstrap/lib/Button';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
@@ -20,7 +19,7 @@ const renderField = ({ input, label, meta: { touched, error, warning }, ...rest 
   );
 };
 
-const renderDateInput = ({ input, label, meta: { touched, error, warning }, ...rest}) => {
+const renderDateInput = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
   return (
     <FormGroup controlId={input.name} className={(error && touched ? ' has-error' : '')}>
       <ControlLabel>{label}</ControlLabel>
@@ -94,15 +93,17 @@ export default class PatientForm extends Component {
     return (
       <div>
         <form onSubmit={handleSubmit}>
-          <div className="row" style={{marginBottom: 10}}>
-            <div className="col-sm-9">
+          <div className="row" style={{ marginBottom: 10 }}>
+            <div className="col-xs-3 col-sm-7 col-md-8">
               <h4>Details</h4>
             </div>
-            <div className="col-sm-3">
-              <ButtonToolbar style={{ float: 'right' }}>
-                <Button>Cancel</Button>
-                <Button type="submit" bsStyle="primary">Save</Button>
-              </ButtonToolbar>
+            <div className="col-xs-9 col-sm-5 col-md-4">
+              <div className="col-xs-6 col-sm-6 col-md-6" style={{paddingRight: 5}}>
+                <Button style={{ width: '100%' }}>Cancel</Button>
+              </div>
+              <div className="col-xs-6 col-sm-6 col-md-6" style={{paddingLeft: 5}}>
+                <Button style={{ width: '100%' }} type="submit" bsStyle="primary">Save</Button>
+              </div>
             </div>
           </div>
           <div className="row">
@@ -113,7 +114,7 @@ export default class PatientForm extends Component {
                 {
                   title.map(lookup =>
                     <option value={lookup.lookupvalue} key={lookup.lookupvalue}>{lookup.lookuptext}</option>
-                    )
+                  )
                 }
               </Field>
             </div>
@@ -153,7 +154,7 @@ export default class PatientForm extends Component {
                 {
                   gender.map(lookup =>
                     <option value={lookup.lookupvalue} key={lookup.lookupvalue}>{lookup.lookuptext}</option>
-                    )
+                  )
                 }
               </Field>
             </div>
@@ -166,12 +167,17 @@ export default class PatientForm extends Component {
                 {
                   ethnicity.map(lookup =>
                     <option value={lookup.lookupvalue} key={lookup.lookupvalue}>{lookup.lookuptext}</option>
-                    )
+                  )
                 }
               </Field>
             </div>
             <div className="col-xs-12 col-sm-3">
               <Field name="englishis2ndlanguage" type="checkbox" className="styled" component={renderCheckbox} label="English is a second language" />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12 col-sm-6">
+              <Field name="notes" componentClass="textarea" rows="5" component={renderField} label="Enter Notes" placeholder="Enter Notes" />
             </div>
           </div>
         </form>
