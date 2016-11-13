@@ -77,7 +77,6 @@ const validate = values => {
 };
 
 const renderField = ({ input, meta: { asyncValidating, touched, error, warning }, ...rest }) => {
-  console.log(input.name);
   return (
     <div className={(input.name === 'password' ? regStyles.marginBottom8px : '') + ' form-group' + (error && touched ? ' has-error' : '')}>
       <div className="col-xs-12">

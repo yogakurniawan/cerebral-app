@@ -5,7 +5,8 @@ import styles from './Patients.scss';
 
 export default class PatientDemographic extends Component {
 
-  handleSubmit = () => {
+  handleSubmit = (values) => {
+    console.log(values);
   }
 
   render() {

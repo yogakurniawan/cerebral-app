@@ -5,3 +5,28 @@
   border-top-width: 3px;
   border-top-color: #842195;
 }
+
+.rightBorderWithGradient {
+  &:before, &:after {
+    content: "";
+    position: absolute;
+    display: block;
+    right: -10px;
+    width: 1px;
+    height: 50%;
+  }
+
+  &:before {
+    top: 0;
+    background: -webkit-linear-gradient(bottom, #842195 0%, transparent 100%);
+    background: -o-linear-gradient(bottom, #842195 0%, transparent 100%);
+    background: linear-gradient(to top, #842195 0%, transparent 100%);
+  }
+
+  &:after {
+    bottom: 0;
+    background: -webkit-linear-gradient(#842195 0%, transparent 100%);
+    background: -o-linear-gradient(#842195 0%, transparent 100%);
+    background: linear-gradient(#842195 0%, transparent 100%);
+  }
+}
