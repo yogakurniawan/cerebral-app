@@ -7,7 +7,15 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import { connect } from 'react-redux';
 import styles from 'common/Common.scss';
 import patientStyles from 'containers/Patients/Patients.scss';
-import DateTimeField from 'utils/DateTimeField';
+import DateTimePicker from 'react-widgets/lib/DateTimePicker';
+// import DateTimeField from 'utils/DateTimeField';
+
+const Moment = require('moment');
+const momentLocalizer = require('react-widgets/lib/localizers/moment');
+const numberLocalizer = require('react-widgets/lib/localizers/simple-number');
+
+momentLocalizer(Moment);
+numberLocalizer();
 
 const renderField = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
   return (
@@ -19,16 +27,11 @@ const renderField = ({ input, label, meta: { touched, error, warning }, ...rest 
   );
 };
 
-const renderDateInput = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
+const renderDateInput = ({ input, label, meta: { touched, error, warning } }) => {
   return (
     <FormGroup controlId={input.name} className={(error && touched ? ' has-error' : '')}>
       <ControlLabel>{label}</ControlLabel>
-      <DateTimeField
-        inputFormat="DD/MM/YYYY"
-        mode="date"
-        defaultText=""
-        {...input}
-        {...rest} />
+      <DateTimePicker defaultValue={null} />
       {touched && ((error && <span className={styles.error}>{error}</span>) || (warning && <span className="warning">{warning}</span>))}
     </FormGroup>
   );

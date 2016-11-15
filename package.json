@@ -42,7 +42,8 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
-        "APIHOST": "https://cerebral-api.herokuapp.com"
+        "APIHOST": "https://cerebral-api.herokuapp.com",
+        "PORT": 8080
       }
     },
     "start-prod-api": {
@@ -99,6 +100,7 @@
     "babel-register": "^6.3.13",
     "babel-runtime": "^6.3.19",
     "body-parser": "^1.14.1",
+    "classnames": "^2.1.2",
     "compression": "^1.6.0",
     "cookie-parser": "^1.3.5",
     "express": "^4.13.3",
@@ -111,6 +113,7 @@
     "less-loader": "^2.2.1",
     "lodash": "^4.16.2",
     "map-props": "^1.0.0",
+    "moment": "^2.8.2",
     "multireducer": "^2.0.0",
     "piping": "^0.3.0",
     "pretty-error": "^1.2.0",
@@ -124,6 +127,7 @@
     "react-router": "2.0.0",
     "react-router-bootstrap": "^0.20.1",
     "react-router-redux": "^4.0.0",
+    "react-widgets": "^3.4.4",
     "redux": "^3.0.4",
     "redux-async-connect": "^1.0.0-rc2",
     "redux-form": "^6.1.0",
@@ -136,9 +140,7 @@
     "url-loader": "^0.5.7",
     "warning": "^2.1.0",
     "webpack-isomorphic-tools": "^2.2.18",
-    "zxcvbn": "^4.4.0",
-    "classnames": "^2.1.2",
-    "moment": "^2.8.2"
+    "zxcvbn": "^4.4.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
