@@ -13,6 +13,7 @@ const Moment = require('moment');
 const momentLocalizer = require('react-widgets/lib/localizers/moment');
 const numberLocalizer = require('react-widgets/lib/localizers/simple-number');
 
+Moment.locale('id');
 momentLocalizer(Moment);
 numberLocalizer();
 
@@ -27,14 +28,13 @@ const renderField = ({ input, label, meta: { touched, error, warning }, ...rest 
 };
 
 const renderDateInput = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
-  console.log(input.onBlur);
-  const {onBlur, ...args} = input;
   return (
-    <FormGroup controlId={input.name} className={(error && touched ? 'has-error' : '')}>
+    <FormGroup controlId={input.name + '_input'} className={(error && touched ? 'has-error' : '')}>
       <ControlLabel>{label}</ControlLabel>
         <Field
-          {...args}
+          {...input}
           {...rest}
+          id={input.name}
           time={false}
           component={DateTimePicker}
           defaultValue={null} />
@@ -56,10 +56,6 @@ const renderCheckbox = ({ input, label, meta: { touched, error, warning }, ...re
 const validate = values => {
   const errors = {};
   const {gender, firstname, lastname, dateofbirth} = values;
-
-  if (!/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/.test(dateofbirth)) {
-    errors.dateofbirth = 'Invalid Date Format';
-  }
 
   if (!firstname) {
     errors.firstname = 'Required';
