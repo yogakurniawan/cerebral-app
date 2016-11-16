@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import styles from 'common/Common.scss';
 import patientStyles from 'containers/Patients/Patients.scss';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
-// import DateTimeField from 'utils/DateTimeField';
 
 const Moment = require('moment');
 const momentLocalizer = require('react-widgets/lib/localizers/moment');
@@ -27,11 +26,18 @@ const renderField = ({ input, label, meta: { touched, error, warning }, ...rest 
   );
 };
 
-const renderDateInput = ({ input, label, meta: { touched, error, warning } }) => {
+const renderDateInput = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
+  console.log(input.onBlur);
+  const {onBlur, ...args} = input;
   return (
-    <FormGroup controlId={input.name} className={(error && touched ? ' has-error' : '')}>
+    <FormGroup controlId={input.name} className={(error && touched ? 'has-error' : '')}>
       <ControlLabel>{label}</ControlLabel>
-      <DateTimePicker defaultValue={null} />
+        <Field
+          {...args}
+          {...rest}
+          time={false}
+          component={DateTimePicker}
+          defaultValue={null} />
       {touched && ((error && <span className={styles.error}>{error}</span>) || (warning && <span className="warning">{warning}</span>))}
     </FormGroup>
   );
@@ -47,28 +53,31 @@ const renderCheckbox = ({ input, label, meta: { touched, error, warning }, ...re
   );
 };
 
-const requiredValidation = (values, fields) => {
-  const errors = {};
-  for (const val of fields) {
-    const value = values[val];
-    if (!value || !!parseInt(value, 10)) {
-      errors[val] = 'Required';
-    }
-  }
-  return errors;
-};
-
 const validate = values => {
   const errors = {};
-  const {dateofbirth} = values;
+  const {gender, firstname, lastname, dateofbirth} = values;
 
   if (!/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/.test(dateofbirth)) {
     errors.dateofbirth = 'Invalid Date Format';
   }
 
-  const fields = ['firstname', 'lastname', 'dateofbirth', 'gender'];
+  if (!firstname) {
+    errors.firstname = 'Required';
+  }
 
-  return {...requiredValidation(values, fields), ...errors };
+  if (!lastname) {
+    errors.lastname = 'Required';
+  }
+
+  if (!gender) {
+    errors.gender = 'Required';
+  }
+
+  if (!dateofbirth) {
+    errors.dateofbirth = 'Required';
+  }
+
+  return errors;
 };
 
 @connect(state => ({
