@@ -13,7 +13,6 @@ const Moment = require('moment');
 const momentLocalizer = require('react-widgets/lib/localizers/moment');
 const numberLocalizer = require('react-widgets/lib/localizers/simple-number');
 
-Moment.locale('id');
 momentLocalizer(Moment);
 numberLocalizer();
 
