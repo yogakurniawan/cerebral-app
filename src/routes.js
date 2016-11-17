@@ -11,6 +11,7 @@ import {
     Survey,
     Patients,
     PatientDemographic,
+    PatientList,
     PatientAlcohol,
     PatientSocial,
     NotFound,
@@ -57,6 +58,7 @@ export default (store, token) => {
         <Route path="todo" component={TodoList}/>
         <Route path="home" component={Home}/>
         <Route path="patients" component={Patients}>
+          <Route path="list" component={PatientList} />
           <Route path="demographic" component={PatientDemographic} />
           <Route path="alcohol" component={PatientAlcohol} />
           <Route path="social" component={PatientSocial} />
