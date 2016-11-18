@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import styles from 'common/Common.scss';
 import patientStyles from 'containers/Patients/Patients.scss';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
+import DropdownList from 'react-widgets/lib/DropdownList';
+import patientFormValidation from './PatientFormValidation';
 
 const Moment = require('moment');
 const momentLocalizer = require('react-widgets/lib/localizers/moment');
@@ -42,6 +44,27 @@ const renderDateInput = ({ input, label, meta: { touched, error, warning }, ...r
   );
 };
 
+const renderDropdown = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
+  const {data, valuefield, textfield, defaultvalue, ...args} = rest;
+  console.log(valuefield);
+  console.log(textfield);
+  return (
+    <FormGroup controlId={input.name + '_input'} className={(error && touched ? 'has-error' : '')}>
+      <ControlLabel>{label}</ControlLabel>
+        <Field
+          {...input}
+          {...args}
+          id={input.name}
+          data={data}
+          component={DropdownList}
+          defaultValue={parseInt(defaultvalue, 10)}
+          valueField={valuefield}
+          textField={textfield} />
+      {touched && ((error && <span className={styles.error}>{error}</span>) || (warning && <span className="warning">{warning}</span>))}
+    </FormGroup>
+  );
+};
+
 const renderCheckbox = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
   return (
     <div className="checkbox checkbox-primary" style={{ marginTop: 30 }}>
@@ -52,29 +75,6 @@ const renderCheckbox = ({ input, label, meta: { touched, error, warning }, ...re
   );
 };
 
-const validate = values => {
-  const errors = {};
-  const {gender, firstname, lastname, dateofbirth} = values;
-
-  if (!firstname) {
-    errors.firstname = 'Required';
-  }
-
-  if (!lastname) {
-    errors.lastname = 'Required';
-  }
-
-  if (!gender) {
-    errors.gender = 'Required';
-  }
-
-  if (!dateofbirth) {
-    errors.dateofbirth = 'Required';
-  }
-
-  return errors;
-};
-
 @connect(state => ({
   ethnicity: state.lookups.ethnicity,
   gender: state.lookups.gender,
@@ -82,7 +82,7 @@ const validate = values => {
 }))
 @reduxForm({
   form: 'Patient',
-  validate
+  validate: patientFormValidation
 })
 export default class PatientForm extends Component {
   static propTypes = {
@@ -195,15 +195,7 @@ export default class PatientForm extends Component {
               </div>
               <div className="row">
                 <div className="col-xs-12 col-sm-6">
-                  <label htmlFor="title">Ethinicity</label>
-                  <Field name="ethinicity" component="select" className="form-control">
-                    <option value="0">Ethinicity</option>
-                    {
-                      ethnicity.map(lookup =>
-                        <option value={lookup.lookupvalue} key={lookup.lookupvalue}>{lookup.lookuptext}</option>
-                      )
-                    }
-                  </Field>
+                  <Field defaultvalue="5" label="Ethnicity" name="ethinicity" component={renderDropdown} data={ethnicity} valuefield="lookupvalue" textfield="lookuptext" />
                 </div>
                 <div className="col-xs-12 col-sm-6">
                   <Field name="englishis2ndlanguage" type="checkbox" className="styled" component={renderCheckbox} label="English is a second language" />
