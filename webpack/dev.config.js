@@ -13,7 +13,7 @@ const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
 
 const babelrc = fs.readFileSync('./.babelrc');
-const babelrcObject = {};
+let babelrcObject = {};
 try {
   babelrcObject = JSON.parse(babelrc);
 } catch (err) {
@@ -24,7 +24,7 @@ try {
 const babelrcObjectDevelopment = babelrcObject.env && babelrcObject.env.development || {};
 
 // merge global and dev-only plugins
-const combinedPlugins = babelrcObject.plugins || [];
+let combinedPlugins = babelrcObject.plugins || [];
 combinedPlugins = combinedPlugins.concat(babelrcObjectDevelopment.plugins);
 
 const babelLoaderQuery = Object.assign({}, babelrcObjectDevelopment, babelrcObject, {plugins: combinedPlugins});
@@ -99,7 +99,6 @@ module.exports = {
     ],
     extensions: ['', '.json', '.js', '.jsx']
   },
-  cache: true,
   plugins: [
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
