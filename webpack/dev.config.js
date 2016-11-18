@@ -14,7 +14,6 @@ const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('.
 
 const babelrc = fs.readFileSync('./.babelrc');
 const babelrcObject = {};
-
 try {
   babelrcObject = JSON.parse(babelrc);
 } catch (err) {
@@ -65,6 +64,7 @@ module.exports = {
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
+      '!!style!css!react-widgets/dist/css/react-widgets.css',
       'bootstrap-loader',
       'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
       'font-awesome-webpack!./src/theme/font-awesome.config.js',
