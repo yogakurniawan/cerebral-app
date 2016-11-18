@@ -19,6 +19,7 @@ module.exports = {
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
+      '!!style!css!react-widgets/dist/css/react-widgets.css',
       'bootstrap-loader/extractStyles',
       'font-awesome-webpack!./src/theme/font-awesome.config.prod.js',
       './src/client.js'
