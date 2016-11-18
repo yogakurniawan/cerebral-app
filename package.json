@@ -42,8 +42,7 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
-        "APIHOST": "https://cerebral-api.herokuapp.com",
-        "PORT": 8080
+        "APIHOST": "https://cerebral-api.herokuapp.com"
       }
     },
     "start-prod-api": {
