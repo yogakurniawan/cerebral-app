@@ -13,7 +13,7 @@ const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
 
 const babelrc = fs.readFileSync('./.babelrc');
-let babelrcObject = {};
+var babelrcObject = {};
 try {
   babelrcObject = JSON.parse(babelrc);
 } catch (err) {
@@ -24,7 +24,7 @@ try {
 const babelrcObjectDevelopment = babelrcObject.env && babelrcObject.env.development || {};
 
 // merge global and dev-only plugins
-let combinedPlugins = babelrcObject.plugins || [];
+var combinedPlugins = babelrcObject.plugins || [];
 combinedPlugins = combinedPlugins.concat(babelrcObjectDevelopment.plugins);
 
 const babelLoaderQuery = Object.assign({}, babelrcObjectDevelopment, babelrcObject, {plugins: combinedPlugins});
@@ -64,6 +64,7 @@ module.exports = {
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
+      '!!style!css!react-data-grid/dist/react-data-grid.css',
       '!!style!css!react-widgets/dist/css/react-widgets.css',
       'bootstrap-loader',
       'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',

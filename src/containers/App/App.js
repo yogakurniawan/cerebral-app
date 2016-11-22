@@ -91,7 +91,7 @@ export default class App extends Component {
                   <NavItem eventKey={1}>Todo List</NavItem>
                 </LinkContainer>}
               {user &&
-                <LinkContainer to="/patients">
+                <LinkContainer to="/patients/list">
                   <NavItem eventKey={1}>Patients</NavItem>
                 </LinkContainer>}
             </Nav>
