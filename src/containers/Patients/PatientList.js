@@ -1,85 +1,87 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
-import ReactDataGrid from 'react-data-grid';
+import FakeObjectDataListStore from 'utils/FakeObjectDataListStore';
+import FixedDataTable from 'fixed-data-table';
+
+const {Table, Column, Cell} = FixedDataTable;
+
+const DateCell = ({ rowIndex, data, col, ...props }) => (
+  <Cell {...props}>
+    {data.getObjectAt(rowIndex)[col].toLocaleString()}
+  </Cell>
+);
+
+const LinkCell = ({ rowIndex, data, col, ...props }) => (
+  <Cell {...props}>
+    <a href="#">{data.getObjectAt(rowIndex)[col]}</a>
+  </Cell>
+);
+
+const TextCell = ({ rowIndex, data, col, ...props }) => (
+  <Cell {...props}>
+    {data.getObjectAt(rowIndex)[col]}
+  </Cell>
+);
 
 export default class PatientList extends Component {
+  constructor(props) {
+    super(props);
 
-  componentWillMount() {
-    for (let idx = 1; idx < 100; idx++) {
-      this._rows.push({
-        id: idx,
-        task: 'Task ' + idx,
-        complete: Math.min(100, Math.round(Math.random() * 110)),
-        priority: ['Critical', 'High', 'Medium', 'Low'][Math.floor((Math.random() * 3) + 1)],
-        issueType: ['Bug', 'Improvement', 'Epic', 'Story'][Math.floor((Math.random() * 3) + 1)],
-        startDate: this.randomDate(new Date(2015, 3, 1), new Date()),
-        completeDate: this.randomDate(new Date(), new Date(2016, 0, 1))
-      });
-    }
+    this.state = {
+      dataList: new FakeObjectDataListStore(100),
+    };
   }
-
-  _rows = []
-
-  randomDate(start, end) {
-    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).toLocaleDateString();
-  }
-
-  handleSubmit = (values) => {
-    console.log(values);
-  }
-
-  columns = [
-    {
-      key: 'id',
-      name: 'ID',
-      resizable: true,
-      width: 40
-    },
-    {
-      key: 'task',
-      name: 'Title',
-      resizable: true
-    },
-    {
-      key: 'priority',
-      name: 'Priority',
-      resizable: true
-    },
-    {
-      key: 'issueType',
-      name: 'Issue Type',
-      resizable: true
-    },
-    {
-      key: 'complete',
-      name: '% Complete',
-      resizable: true
-    },
-    {
-      key: 'startDate',
-      name: 'Start Date',
-      resizable: true
-    },
-    {
-      key: 'completeDate',
-      name: 'Expected Complete',
-      resizable: true
-    }
-  ]
-
-  rowGetter = idx => (this._rows[idx])
 
   render() {
+    const {dataList} = this.state;
     return (
       <div>
         <Helmet title="Patient List" />
         <div className="row">
           <div className="col-xs-12">
-            <ReactDataGrid
-              columns={this.columns}
-              rowGetter={this.rowGetter}
-              rowsCount={this._rows.length}
-              minHeight={500} />
+            <Table
+              rowHeight={50}
+              headerHeight={50}
+              rowsCount={dataList.getSize()}
+              width={1100}
+              height={500}
+              {...this.props}>
+              <Column
+                header={<Cell>First Name</Cell>}
+                cell={<LinkCell data={dataList} col="firstName" />}
+                width={100}
+                />
+              <Column
+                header={<Cell>Last Name</Cell>}
+                cell={<TextCell data={dataList} col="lastName" />}
+                width={100}
+                />
+              <Column
+                header={<Cell>City</Cell>}
+                cell={<TextCell data={dataList} col="city" />}
+                width={100}
+                />
+              <Column
+                header={<Cell>Street</Cell>}
+                cell={<TextCell data={dataList} col="street" />}
+                width={200}
+                />
+              <Column
+                header={<Cell>Zip Code</Cell>}
+                cell={<TextCell data={dataList} col="zipCode" />}
+                width={200}
+                />
+              <Column
+                header={<Cell>Email</Cell>}
+                cell={<LinkCell data={dataList} col="email" />}
+                width={200}
+                />
+              <Column
+                header={<Cell>DOB</Cell>}
+                cell={<DateCell data={dataList} col="date" />}
+                width={200}
+                />
+            </Table>
           </div>
         </div>
       </div>

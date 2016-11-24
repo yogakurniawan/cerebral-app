@@ -19,7 +19,7 @@ module.exports = {
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
-      '!!style!css!react-data-grid/dist/react-data-grid.css',
+      '!!style!css!fixed-data-table/dist/fixed-data-table.css',
       '!!style!css!react-widgets/dist/css/react-widgets.css',
       'bootstrap-loader/extractStyles',
       'font-awesome-webpack!./src/theme/font-awesome.config.prod.js',
