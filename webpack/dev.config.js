@@ -64,7 +64,6 @@ module.exports = {
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
-      '!!style!css!fixed-data-table/dist/fixed-data-table.css',
       '!!style!css!react-widgets/dist/css/react-widgets.css',
       'bootstrap-loader',
       'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
