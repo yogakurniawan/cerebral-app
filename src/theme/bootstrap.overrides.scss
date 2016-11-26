@@ -48,6 +48,9 @@ html {
 
 .nav-tabs {
   border-bottom: none;
+  > li {
+    margin-bottom: 0;
+  }
   > li.active {
     > a, a:focus {
       background-color: #e2e2e2;

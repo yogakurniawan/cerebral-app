@@ -142,15 +142,7 @@ export default class PatientForm extends Component {
             <div className={'col-xs-12 col-sm-12 col-md-6 col-lg-6 ' + patientStyles.rightBorderWithGradient}>
               <div className="row">
                 <div className="col-xs-12 col-sm-4">
-                  <label htmlFor="title">Title</label>
-                  <Field name="title" component="select" className="form-control">
-                    <option value="0">Title</option>
-                    {
-                      title.map(lookup =>
-                        <option value={lookup.lookupvalue} key={lookup.lookupvalue}>{lookup.lookuptext}</option>
-                      )
-                    }
-                  </Field>
+                  <Field defaultvalue="1" label="Title" name="title" component={renderDropdown} data={title} valuefield="lookupvalue" textfield="lookuptext" />
                 </div>
               </div>
               <div className="row">
@@ -182,15 +174,7 @@ export default class PatientForm extends Component {
                   <Field name="dateofbirth" label="Date of Birth" maxLength="100" type="text" component={renderDateInput} placeholder="Date of Birth" />
                 </div>
                 <div className="col-xs-12 col-sm-6">
-                  <label htmlFor="title">Gender</label>
-                  <Field name="gender" component="select" className="form-control">
-                    <option value="0">Gender</option>
-                    {
-                      gender.map(lookup =>
-                        <option value={lookup.lookupvalue} key={lookup.lookupvalue}>{lookup.lookuptext}</option>
-                      )
-                    }
-                  </Field>
+                  <Field defaultvalue="1" label="Gender" name="gender" component={renderDropdown} data={gender} valuefield="lookupvalue" textfield="lookuptext" />
                 </div>
               </div>
               <div className="row">
