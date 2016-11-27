@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 import * as authActions from 'redux/modules/auth';
 import Cookie from 'js-cookie';
-import NotificationSystem from 'react-notification-system';
+import {toastr} from 'react-redux-toastr';
 import {LoginForm} from 'components';
 
 @connect(
@@ -21,18 +21,13 @@ export default class Login extends Component {
   handleSubmit = values => {
     const username = values.username;
     const password = values.password;
-    const notification = this.refs.notificationSystem;
     const promise = this.props.login(username, password);
     return promise
       .then(login => {
         Cookie.set('token', login.id);
       })
       .catch(() => {
-        notification.addNotification({
-          message: 'Invalid Email or Password',
-          level: 'error',
-          position: 'tc'
-        });
+        toastr.error('Login Error', 'Invalid Email or Password');
       });
   }
 
@@ -42,7 +37,6 @@ export default class Login extends Component {
     return (
       <div className={styles.loginPage + ' container'}>
         <Helmet title="Login"/>
-        <NotificationSystem ref="notificationSystem" />
         {!user &&
         <div className={styles.formTitle + ' row'}>
           <div className="text-center">

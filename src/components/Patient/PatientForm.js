@@ -5,11 +5,13 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import styles from 'common/Common.scss';
 import patientStyles from 'containers/Patients/Patients.scss';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
 import DropdownList from 'react-widgets/lib/DropdownList';
 import patientFormValidation from './PatientFormValidation';
+import {load as loadPatient} from 'redux/modules/patients';
 
 const Moment = require('moment');
 const momentLocalizer = require('react-widgets/lib/localizers/moment');
@@ -46,8 +48,6 @@ const renderDateInput = ({ input, label, meta: { touched, error, warning }, ...r
 
 const renderDropdown = ({ input, label, meta: { touched, error, warning }, ...rest }) => {
   const {data, valuefield, textfield, defaultvalue, ...args} = rest;
-  console.log(valuefield);
-  console.log(textfield);
   return (
     <FormGroup controlId={input.name + '_input'} className={(error && touched ? 'has-error' : '')}>
       <ControlLabel>{label}</ControlLabel>
@@ -75,18 +75,31 @@ const renderCheckbox = ({ input, label, meta: { touched, error, warning }, ...re
   );
 };
 
+const patientInitialData = { // used to populate "patients" reducer
+  title: {
+    lookupname: 'titleid',
+    lookuptext: 'Mr.',
+    lookupvalue: 1
+  },
+  gender: 2,
+  ethnicity: 5
+};
+
 @connect(state => ({
   ethnicity: state.lookups.ethnicity,
   gender: state.lookups.gender,
-  title: state.lookups.title
-}))
+  title: state.lookups.title,
+  initialValues: state.patients.patient
+}), {loadPatient, pushState: push})
 @reduxForm({
   form: 'Patient',
   validate: patientFormValidation
 })
 export default class PatientForm extends Component {
   static propTypes = {
+    initialValues: PropTypes.object,
     submitting: PropTypes.bool.isRequired,
+    loadPatient: PropTypes.func.isRequired,
     ethnicity: PropTypes.arrayOf(PropTypes.shape({
       lookupname: PropTypes.string.isRequired,
       lookupvalue: PropTypes.number.isRequired,
@@ -117,11 +130,26 @@ export default class PatientForm extends Component {
       recordstatusid: PropTypes.number.isRequired,
       id: PropTypes.string.isRequired
     }).isRequired).isRequired,
+    pushState: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired
   }
 
+  componentDidMount() {
+    this.props.loadPatient(patientInitialData);
+  }
+
+  cancel = () => {
+    this.props.pushState('/patients/list');
+  }
+
   render() {
-    const {handleSubmit, ethnicity, title, gender} = this.props;
+    const {handleSubmit, submitting, ethnicity, title, gender} = this.props;
+    let spinner = '';
+    let saveText = 'Save';
+    if (submitting) {
+      spinner += 'fa fa-spinner fa-spin';
+      saveText = 'Saving...';
+    }
     return (
       <div>
         <form onSubmit={handleSubmit}>
@@ -131,10 +159,12 @@ export default class PatientForm extends Component {
             </div>
             <div className="col-xs-9 col-sm-5 col-md-4">
               <div className="col-xs-6 col-sm-6 col-md-6" style={{ paddingRight: 5 }}>
-                <Button style={{ width: '100%' }}>Cancel</Button>
+                <Button onClick={this.cancel} style={{ width: '100%' }}>Cancel</Button>
               </div>
               <div className="col-xs-6 col-sm-6 col-md-6" style={{ paddingLeft: 5 }}>
-                <Button style={{ width: '100%' }} type="submit" bsStyle="primary">Save</Button>
+                <Button disabled={submitting} style={{ width: '100%' }} type="submit" bsStyle="primary">
+                  <i className={spinner} />{' '}{saveText}
+                </Button>
               </div>
             </div>
           </div>
@@ -174,7 +204,7 @@ export default class PatientForm extends Component {
                   <Field name="dateofbirth" label="Date of Birth" maxLength="100" type="text" component={renderDateInput} placeholder="Date of Birth" />
                 </div>
                 <div className="col-xs-12 col-sm-6">
-                  <Field defaultvalue="1" label="Gender" name="gender" component={renderDropdown} data={gender} valuefield="lookupvalue" textfield="lookuptext" />
+                  <Field defaultvalue="2" label="Gender" name="gender" component={renderDropdown} data={gender} valuefield="lookupvalue" textfield="lookuptext" />
                 </div>
               </div>
               <div className="row">

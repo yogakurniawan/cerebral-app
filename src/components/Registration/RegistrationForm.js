@@ -141,7 +141,7 @@ export default class RegistrationForm extends Component {
     }
     return (
       <div>
-        <form className="form-horizontal" onSubmit={handleSubmit}>
+        <form className={commonStyles.standardBox + ' form-horizontal'} onSubmit={handleSubmit}>
           <div className={styles.appLogo}><img src="https://storage.googleapis.com/cerebral/cerebral-logo.png" /></div>
           <Field name="firstname" maxLength="100" type="text" component={renderField} className="form-control" placeholder="First Name" />
           <Field name="lastname" maxLength="100" type="text" component={renderField} className="form-control" placeholder="Last Name" />

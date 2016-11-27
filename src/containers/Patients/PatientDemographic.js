@@ -3,32 +3,38 @@ import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { PatientForm } from 'components';
 import styles from './Patients.scss';
-import {extractLookup} from 'utils/extractValue';
-// import * as patientActions from 'redux/modules/patients';
+import { connect } from 'react-redux';
+import {parseLookup} from 'utils/extractValue';
+import {save as savePatient} from 'redux/modules/patients';
 
-// @connect(undefined, {
-  // ...authActions
-// })
+@connect(undefined, {
+  savePatient
+})
 export default class PatientDemographic extends Component {
   static propTypes = {
     savePatient: PropTypes.func
   }
 
+  constructFullname = (values) => {
+    const title = values.title.lookuptext;
+    const {firstname, lastname} = values;
+    const fullname = `${title} ${lastname}, ${firstname} `;
+    values.fullname = fullname;
+    return values;
+  }
+
   handleSubmit = (values) => {
-    console.log(extractLookup(values));
-    // const promise = this.props.savePatient(values);
-    // return promise
-    //   .then(() => {
-    //     // this.props.pushState('/registerSuccess');
-    //   })
-    //   .catch(() => {});
+    let patient = this.constructFullname(values);
+    patient = parseLookup(values);
+    const promise = this.props.savePatient(patient);
+    return promise;
   }
 
   render() {
     return (
       <div className={'container ' + styles.content}>
         <Helmet title="Patient Demographic" />
-        <PatientForm onSubmit={this.handleSubmit} />
+        <PatientForm cancelAdd={this.cancel} onSubmit={this.handleSubmit} />
       </div>
     );
   }

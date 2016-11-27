@@ -20,6 +20,7 @@ import config from '../../config';
 import { asyncConnect } from 'redux-async-connect';
 import Cookie from 'js-cookie';
 import styles from './App.scss';
+import ReduxToastr from 'react-redux-toastr';
 
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
@@ -87,10 +88,6 @@ export default class App extends Component {
           <Navbar.Collapse eventKey={0}>
             <Nav navbar>
               {user &&
-                <LinkContainer to="/todo">
-                  <NavItem eventKey={1}>Todo List</NavItem>
-                </LinkContainer>}
-              {user &&
                 <LinkContainer to="/patients/list">
                   <NavItem eventKey={1}>Patients</NavItem>
                 </LinkContainer>}
@@ -104,7 +101,14 @@ export default class App extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>}
-
+        <ReduxToastr
+          timeOut={3000}
+          newestOnTop={false}
+          preventDuplicates
+          position="top-center"
+          transitionIn="fadeIn"
+          transitionOut="fadeOut"
+          progressBar />
         <div className={styles.appContent + ' container'}>
           {this.props.children}
         </div>

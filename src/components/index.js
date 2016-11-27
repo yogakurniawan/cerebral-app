@@ -10,3 +10,4 @@ export EmailVerified from './Registration/EmailVerified';
 export TodoList from './TodoList/TodoList';
 export LoginForm from './LoginForm/LoginForm';
 export PatientForm from './Patient/PatientForm';
+export ButtonBsV4 from './Buttons/Buttons';

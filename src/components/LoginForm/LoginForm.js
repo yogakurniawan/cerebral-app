@@ -23,7 +23,7 @@ export default class LoginForm extends Component {
     }
     return (
       <div className={styles.loginPage}>
-        <form className="login-form" onSubmit={handleSubmit}>
+        <form className={commonSytles.standardBox} onSubmit={handleSubmit}>
           <div className={styles.appLogo}><img src="https://storage.googleapis.com/cerebral/cerebral-logo.png" /></div>
           <div className="form-group">
             <div className="input-group">

@@ -13,7 +13,7 @@ export default class Home extends Component {
     const {user} = this.props;
     return (user &&
       <div className="container">
-        <h1>Welcome, {user.fullname}</h1>
+        <h1>Welcome, {user.firstname + ' ' + user.lastname}</h1>
 
         <div>
           <p>
