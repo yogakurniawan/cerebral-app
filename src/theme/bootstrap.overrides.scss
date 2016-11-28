@@ -23,6 +23,11 @@
 .navbar-default {
   background-color: #fff;
   .navbar-nav {
+    > li {
+      > a {
+        line-height: 24px;
+      }
+    }
     > li:hover, .active {
       > a, a:hover, a:focus {
         color: $brand-primary;
