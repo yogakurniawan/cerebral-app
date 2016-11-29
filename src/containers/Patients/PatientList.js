@@ -1,44 +1,40 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import FixedDataTable from 'fixed-data-table';
-import {ButtonBsV4} from 'components/Buttons/Buttons';
-import {push} from 'react-router-redux';
+import { ButtonBsV4 } from 'components/Buttons/Buttons';
+import { push } from 'react-router-redux';
 import dimensions from 'react-dimensions';
 import GridDataListStore from 'utils/GridDataListStore';
-import {asyncConnect} from 'redux-async-connect';
-import {loadPatients} from 'redux/modules/patients';
+import { loadPatients } from 'redux/modules/patients';
+import commonStyles from 'common/Common.scss';
 
 const {Table, Column, Cell} = FixedDataTable;
 
-const DateCell = ({rowIndex, data, col, ...props}) => (
+const DateCell = ({ rowIndex, data, col, ...props }) => (
   <Cell {...props}>
     {data.getObjectAt(rowIndex)[col].toLocaleString()}
   </Cell>
 );
 
-const TextCell = ({rowIndex, data, col, ...props}) => (
+const TextCell = ({ rowIndex, data, col, ...props }) => (
   <Cell {...props}>
     {data.getObjectAt(rowIndex)[col]}
   </Cell>
 );
 
-@asyncConnect([{
-  promise: ({store: {dispatch}}) => {
-    const promises = [];
-    promises.push(dispatch(loadPatients()));
-    return Promise.all(promises);
-  }
-}])
 @connect((state) => ({
+  isLoadingPatients: state.patients.loading,
   patients: state.patients.patients,
   gender: state.lookups.gender
-}), {pushState: push})
+}), { pushState: push, loadPatients })
 @dimensions()
 export default class PatientList extends Component {
   static propTypes = {
-    patients: PropTypes.array.isRequired,
+    patients: PropTypes.array,
+    isLoadingPatients: PropTypes.bool.isRequired,
     pushState: PropTypes.func.isRequired,
+    loadPatients: PropTypes.func.isRequired,
     containerWidth: PropTypes.number.isRequired,
     gender: PropTypes.arrayOf(PropTypes.shape({
       lookupname: PropTypes.string.isRequired,
@@ -52,12 +48,8 @@ export default class PatientList extends Component {
     }).isRequired).isRequired
   };
 
-  constructor(props) {
-    super(props);
-    const patients = this.parsePatientData(this.props.patients);
-    this.state = {
-      dataList: new GridDataListStore(patients)
-    };
+  componentWillMount() {
+    this.props.loadPatients();
   }
 
   parsePatientData = (patients) => {
@@ -80,18 +72,24 @@ export default class PatientList extends Component {
   }
 
   render() {
-    const {dataList} = this.state;
-    const {containerWidth} = this.props;
+    const {containerWidth, patients, isLoadingPatients} = this.props;
+    let dataList = new GridDataListStore([]);
+    if (patients) {
+      const parsedValues = this.parsePatientData(patients);
+      dataList = new GridDataListStore(parsedValues);
+    }
     return (
       <div>
-        <Helmet title="Patient List"/>
-        <div className="row" style={{marginBottom: 10}}>
+        <Helmet title="Patient List" />
+        <div className="row" style={{ marginBottom: 10 }}>
           <div className="col-xs-12">
             <ButtonBsV4 onClick={this.newPatient}>New Patient</ButtonBsV4>
           </div>
         </div>
         <div className="row">
           <div className="col-xs-12">
+            {isLoadingPatients && dataList.getSize() === 0 &&
+              <div className={commonStyles.loaderBox}></div>}
             <Table
               rowHeight={40}
               headerHeight={40}
@@ -101,22 +99,22 @@ export default class PatientList extends Component {
               {...this.props}>
               <Column
                 header={<Cell>Name</Cell>}
-                cell={<TextCell data={dataList} col="fullname"/>}
+                cell={<TextCell data={dataList} col="fullname" />}
                 flexGrow={1}
                 width={200}
-              />
+                />
               <Column
                 header={<Cell>Gender</Cell>}
-                cell={<TextCell data={dataList} col="gender"/>}
+                cell={<TextCell data={dataList} col="gender" />}
                 flexGrow={1}
                 width={100}
-              />
+                />
               <Column
                 header={<Cell>DOB</Cell>}
-                cell={<DateCell data={dataList} col="dateofbirth"/>}
+                cell={<DateCell data={dataList} col="dateofbirth" />}
                 flexGrow={1}
                 width={100}
-              />
+                />
             </Table>
           </div>
         </div>

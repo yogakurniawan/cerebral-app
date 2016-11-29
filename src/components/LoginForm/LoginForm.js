@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import styles from 'containers/Login/Login.scss';
 import commonSytles from 'common/Common.scss';
 

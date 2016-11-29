@@ -17,3 +17,33 @@
       0px 4px 20px rgba( 0,0,0,0.33 );
   border-radius: 5px;
 }
+
+//colors
+$black: #000;
+$color_biscay_approx: #1a3668;
+
+//@extend-elements
+//original selectors
+//.loader-box:after, .loader-box:before
+%extend_1 {
+	content: '';
+	position: absolute;
+	left: 0;
+  width: 80px;
+	height: 80px;
+}
+
+
+.loaderBox {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -50px;
+	&:after {
+		@extend %extend_1;
+		background: url('https://storage.googleapis.com/cerebral/loading-bubbles.svg');
+		background-repeat: no-repeat;
+    background-size: 80px;
+    top: 0;
+	}
+}
