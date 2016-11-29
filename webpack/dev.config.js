@@ -105,7 +105,7 @@ module.exports = {
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
     new webpack.DefinePlugin({
       'process.env': {
-        APIHOST: '"https://cerebral-api.herokuapp.com"'
+        APIHOST: '"http://54.254.154.139:9000"'
       },
       __CLIENT__: true,
       __SERVER__: false,
