@@ -1,0 +1,309 @@
+//colors
+$color_alto_approx: #ddd;
+$color_quill_gray_approx: lightgrey;
+
+//@extend-elements
+//original selectors
+//.react-bs-table table td, .react-bs-table table th
+%extend_1 {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+//original selectors
+//.react-bs-table .react-bs-container-header >table >thead >tr >th .number-filter-input, .react-bs-table .react-bs-container-header >table >thead >tr >th .date-filter-input
+%extend_2 {
+	margin-left: 5px;
+	float: left;
+	width: calc(100% - 67px - 5px);
+}
+
+
+.react-bs-table {
+	border: 1px solid $color_alto_approx;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 5px;
+	margin: 5px 10px;
+	table {
+		margin-bottom: 0;
+		table-layout: fixed;
+		td {
+			@extend %extend_1;
+		}
+		th {
+			@extend %extend_1;
+		}
+	}
+	.table-bordered {
+		border: 0;
+		> thead > tr {
+			> th {
+				border-bottom-width: 2px;
+				&:first-child {
+					border-left-width: 0;
+				}
+				&:last-child {
+					border-right-width: 0;
+				}
+			}
+			> td {
+				border-bottom-width: 2px;
+				&:first-child {
+					border-left-width: 0;
+				}
+				&:last-child {
+					border-right-width: 0;
+				}
+			}
+			&:first-child {
+				> th {
+					border-top-width: 0;
+				}
+				> td {
+					border-top-width: 0;
+				}
+			}
+		}
+		> tfoot > tr {
+			> th {
+				border-top-width: 2px;
+				border-bottom-width: 0;
+				&:first-child {
+					border-left-width: 0;
+				}
+				&:last-child {
+					border-right-width: 0;
+				}
+			}
+			> td {
+				border-top-width: 2px;
+				border-bottom-width: 0;
+				&:first-child {
+					border-left-width: 0;
+				}
+				&:last-child {
+					border-right-width: 0;
+				}
+			}
+			&:last-child {
+				> th {
+					border-bottom-width: 0;
+				}
+				> td {
+					border-bottom-width: 0;
+				}
+			}
+		}
+		> tbody > tr {
+			> th {
+				&:first-child {
+					border-left-width: 0;
+				}
+				&:last-child {
+					border-right-width: 0;
+				}
+			}
+			> td {
+				&:first-child {
+					border-left-width: 0;
+				}
+				&:last-child {
+					border-right-width: 0;
+				}
+			}
+		}
+	}
+	.react-bs-container-header {
+		.sort-column {
+			cursor: pointer;
+		}
+		> table > thead > tr > th {
+			vertical-align: middle;
+			.filter {
+				font-weight: normal;
+			}
+			.select-filter {
+				option[value=''] {
+					color: $color_quill_gray_approx;
+					font-style: italic;
+				}
+				&.placeholder-selected {
+					color: $color_quill_gray_approx;
+					font-style: italic;
+					option:not([value='']) {
+						color: initial;
+						font-style: initial;
+					}
+				}
+			}
+			.filter::-webkit-input-placeholder {
+				color: $color_quill_gray_approx;
+				font-style: italic;
+			}
+			.number-filter-input::-webkit-input-placeholder {
+				color: $color_quill_gray_approx;
+				font-style: italic;
+			}
+			.number-filter {
+				display: flex;
+			}
+			.date-filter {
+				display: flex;
+			}
+			.number-filter-input {
+				@extend %extend_2;
+			}
+			.date-filter-input {
+				@extend %extend_2;
+			}
+			.number-filter-comparator {
+				width: 67px;
+				float: left;
+			}
+			.date-filter-comparator {
+				width: 67px;
+				float: left;
+			}
+		}
+	}
+}
+.react-bs-table-pagination {
+	margin: 10px;
+}
+.react-bs-table-tool-bar {
+	margin: 10px 10px 0 10px;
+}
+.react-bs-container-header {
+	overflow: hidden;
+	width: 100%;
+}
+.react-bs-container-body {
+	overflow: auto;
+	width: 100%;
+}
+.react-bs-container {
+	.textarea-save-btn {
+		position: absolute;
+		z-index: 100;
+		right: 0;
+		top: -21px;
+	}
+	.form-control.editor {
+	}
+}
+.react-bs-table-no-data {
+	text-align: center;
+}
+.animated {
+	animation-fill-mode: both;
+	&.bounceIn {
+		animation-duration: .75s;
+	}
+	&.bounceOut {
+		animation-duration: .75s;
+	}
+	&.shake {
+		animation-duration: .3s;
+	}
+}
+@keyframes shake {
+	from {
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: translate3d(0, 0, 0);
+	}
+	to {
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: translate3d(0, 0, 0);
+	}
+	10% {
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: translate3d(-10px, 0, 0);
+	}
+	50% {
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: translate3d(-10px, 0, 0);
+	}
+	90% {
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: translate3d(-10px, 0, 0);
+	}
+	30% {
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: translate3d(10px, 0, 0);
+	}
+	70% {
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: translate3d(10px, 0, 0);
+	}
+}
+.shake {
+	animation-name: shake;
+}
+@keyframes bounceIn {
+	from {
+		animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+	}
+	20% {
+		animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale3d(1.1, 1.1, 1.1);
+	}
+	40% {
+		animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale3d(.9, .9, .9);
+	}
+	60% {
+		animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		opacity: 1;
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale3d(1.03, 1.03, 1.03);
+	}
+	80% {
+		animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale3d(.97, .97, .97);
+	}
+	to {
+		animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		opacity: 1;
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale3d(1, 1, 1);
+	}
+	0% {
+		opacity: 0;
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale3d(.3, .3, .3);
+	}
+}
+.bounceIn {
+	animation-name: bounceIn;
+}
+@keyframes bounceOut {
+	20% {
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale3d(.9, .9, .9);
+	}
+	50% {
+		opacity: 1;
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale3d(1.1, 1.1, 1.1);
+	}
+	55% {
+		opacity: 1;
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale3d(1.1, 1.1, 1.1);
+	}
+	to {
+		opacity: 0;
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: scale3d(.3, .3, .3);
+	}
+}
+.bounceOut {
+	animation-name: bounceOut;
+}
+.react-bs-table-container .react-bs-table-search-form {
+	margin-bottom: 0;
+}

@@ -1,27 +1,29 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import FixedDataTable from 'fixed-data-table';
+// import FixedDataTable from 'fixed-data-table';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { ButtonBsV4 } from 'components/Buttons/Buttons';
 import { push } from 'react-router-redux';
 import dimensions from 'react-dimensions';
-import GridDataListStore from 'utils/GridDataListStore';
+// import GridDataListStore from 'utils/GridDataListStore';
 import { loadPatients } from 'redux/modules/patients';
 import commonStyles from 'common/Common.scss';
+import moment from 'moment';
 
-const {Table, Column, Cell} = FixedDataTable;
+// const {Table, Column, Cell} = FixedDataTable;
 
-const DateCell = ({ rowIndex, data, col, ...props }) => (
-  <Cell {...props}>
-    {data.getObjectAt(rowIndex)[col].toLocaleString()}
-  </Cell>
-);
+// const DateCell = ({ rowIndex, data, col, ...props }) => (
+//   <Cell {...props}>
+//     {data.getObjectAt(rowIndex)[col].toLocaleString()}
+//   </Cell>
+// );
 
-const TextCell = ({ rowIndex, data, col, ...props }) => (
-  <Cell {...props}>
-    {data.getObjectAt(rowIndex)[col]}
-  </Cell>
-);
+// const TextCell = ({ rowIndex, data, col, ...props }) => (
+//   <Cell {...props}>
+//     {data.getObjectAt(rowIndex)[col]}
+//   </Cell>
+// );
 
 @connect((state) => ({
   isLoadingPatients: state.patients.loading,
@@ -62,6 +64,7 @@ export default class PatientList extends Component {
         });
         patient.gender = filterByGender[0].lookuptext;
       }
+      patient.dateofbirth = moment(patient.dateofbirth).format('DD/MM/YYYY');
       return patient;
     });
     return patients;
@@ -72,11 +75,11 @@ export default class PatientList extends Component {
   }
 
   render() {
-    const {containerWidth, patients, isLoadingPatients} = this.props;
-    let dataList = new GridDataListStore([]);
+    const {patients, isLoadingPatients} = this.props;
+    let dataList = [];
     if (patients) {
       const parsedValues = this.parsePatientData(patients);
-      dataList = new GridDataListStore(parsedValues);
+      dataList = parsedValues;
     }
     return (
       <div>
@@ -86,38 +89,12 @@ export default class PatientList extends Component {
             <ButtonBsV4 onClick={this.newPatient}>New Patient</ButtonBsV4>
           </div>
         </div>
-        <div className="row">
-          <div className="col-xs-12">
-            {isLoadingPatients && dataList.getSize() === 0 &&
-              <div className={commonStyles.loaderBox}></div>}
-            <Table
-              rowHeight={40}
-              headerHeight={40}
-              rowsCount={dataList.getSize()}
-              width={containerWidth}
-              height={500}
-              {...this.props}>
-              <Column
-                header={<Cell>Name</Cell>}
-                cell={<TextCell data={dataList} col="fullname" />}
-                flexGrow={1}
-                width={200}
-                />
-              <Column
-                header={<Cell>Gender</Cell>}
-                cell={<TextCell data={dataList} col="gender" />}
-                flexGrow={1}
-                width={100}
-                />
-              <Column
-                header={<Cell>DOB</Cell>}
-                cell={<DateCell data={dataList} col="dateofbirth" />}
-                flexGrow={1}
-                width={100}
-                />
-            </Table>
-          </div>
-        </div>
+        <BootstrapTable data={dataList}>
+          <TableHeaderColumn dataField="id" isKey>Product ID</TableHeaderColumn>
+          <TableHeaderColumn dataField="fullname">Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="gender">Gender</TableHeaderColumn>
+          <TableHeaderColumn dataField="dateofbirth">DOB</TableHeaderColumn>
+        </BootstrapTable>
       </div>
     );
   }
