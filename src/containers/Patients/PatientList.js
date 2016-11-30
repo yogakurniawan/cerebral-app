@@ -1,29 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-// import FixedDataTable from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { ButtonBsV4 } from 'components/Buttons/Buttons';
 import { push } from 'react-router-redux';
 import dimensions from 'react-dimensions';
-// import GridDataListStore from 'utils/GridDataListStore';
 import { loadPatients } from 'redux/modules/patients';
-import commonStyles from 'common/Common.scss';
 import moment from 'moment';
-
-// const {Table, Column, Cell} = FixedDataTable;
-
-// const DateCell = ({ rowIndex, data, col, ...props }) => (
-//   <Cell {...props}>
-//     {data.getObjectAt(rowIndex)[col].toLocaleString()}
-//   </Cell>
-// );
-
-// const TextCell = ({ rowIndex, data, col, ...props }) => (
-//   <Cell {...props}>
-//     {data.getObjectAt(rowIndex)[col]}
-//   </Cell>
-// );
 
 @connect((state) => ({
   isLoadingPatients: state.patients.loading,
@@ -74,13 +57,23 @@ export default class PatientList extends Component {
     this.props.pushState('/patients/details/demographic');
   }
 
+  handleRowSelect(row, isSelected, event) {
+    console.log(row);
+    console.log(event);
+    console.log(isSelected);
+  }
+
   render() {
-    const {patients, isLoadingPatients} = this.props;
+    const {patients} = this.props;
     let dataList = [];
     if (patients) {
       const parsedValues = this.parsePatientData(patients);
       dataList = parsedValues;
     }
+    const selectRowProp = {
+      mode: 'checkbox',
+      onSelect: this.handleRowSelect
+    };
     return (
       <div>
         <Helmet title="Patient List" />
@@ -89,8 +82,7 @@ export default class PatientList extends Component {
             <ButtonBsV4 onClick={this.newPatient}>New Patient</ButtonBsV4>
           </div>
         </div>
-        <BootstrapTable data={dataList}>
-          <TableHeaderColumn dataField="id" isKey>Product ID</TableHeaderColumn>
+        <BootstrapTable data={dataList} selectRow={selectRowProp}>
           <TableHeaderColumn dataField="fullname">Name</TableHeaderColumn>
           <TableHeaderColumn dataField="gender">Gender</TableHeaderColumn>
           <TableHeaderColumn dataField="dateofbirth">DOB</TableHeaderColumn>

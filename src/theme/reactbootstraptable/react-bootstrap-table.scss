@@ -21,10 +21,11 @@ $color_quill_gray_approx: lightgrey;
 
 
 .react-bs-table {
+	background-color: white;
 	border: 1px solid $color_alto_approx;
 	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
 	border-radius: 5px;
-	margin: 5px 10px;
+	margin: 5px 0;
 	table {
 		margin-bottom: 0;
 		table-layout: fixed;
@@ -115,6 +116,9 @@ $color_quill_gray_approx: lightgrey;
 		}
 	}
 	.react-bs-container-header {
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		background-image: linear-gradient(#fff,#efefef);
 		.sort-column {
 			cursor: pointer;
 		}
