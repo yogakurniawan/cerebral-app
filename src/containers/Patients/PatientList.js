@@ -83,6 +83,7 @@ export default class PatientList extends Component {
           </div>
         </div>
         <BootstrapTable data={dataList} selectRow={selectRowProp}>
+          <TableHeaderColumn dataField="id" isKey hidden>Product ID</TableHeaderColumn>
           <TableHeaderColumn dataField="fullname">Name</TableHeaderColumn>
           <TableHeaderColumn dataField="gender">Gender</TableHeaderColumn>
           <TableHeaderColumn dataField="dateofbirth">DOB</TableHeaderColumn>
