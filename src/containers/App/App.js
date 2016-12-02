@@ -18,14 +18,14 @@ import {
 import { push } from 'react-router-redux';
 import config from '../../config';
 import { asyncConnect } from 'redux-async-connect';
-import Cookie from 'js-cookie';
+import * as Cookies from 'js-cookie';
 import styles from './App.scss';
 import ReduxToastr from 'react-redux-toastr';
 
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
     const promises = [];
-    const token = Cookie.get('token');
+    const token = Cookies.get('token');
 
     if (!isAuthLoaded(getState()) && token) {
       promises.push(dispatch(loadAuth()));

@@ -1,6 +1,5 @@
 import React from 'react';
 import { IndexRedirect, Route } from 'react-router';
-import * as Cookies from 'js-cookie';
 import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth';
 import {
   App,
@@ -22,7 +21,6 @@ import { RegistrationSuccess, EmailVerified } from 'components';
 
 export default (store, token) => {
   const requireLogin = (nextState, replace, cb) => {
-    const _token = token || Cookies.get('token');
     function checkAuth() {
       const { auth: { user }} = store.getState();
       if (!user) {
@@ -32,7 +30,7 @@ export default (store, token) => {
       cb();
     }
 
-    if (!isAuthLoaded(store.getState()) && _token) {
+    if (!isAuthLoaded(store.getState()) && token) {
       store.dispatch(loadAuth())
         .then(checkAuth)
         .catch(checkAuth);

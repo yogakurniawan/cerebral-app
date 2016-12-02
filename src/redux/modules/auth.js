@@ -92,6 +92,7 @@ export default function reducer(state = initialState, action = {}) {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        loaded: true,
         loggingIn: false,
         user: result.userDetail,
         loginInfo: result
