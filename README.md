@@ -68,7 +68,7 @@ npm run start
 
 ## Demo
 
-A demonstration of this app can be seen [running on heroku](https://cerebral-app.herokuapp.com), which is a deployment of the [heroku branch](https://github.com/erikras/react-redux-universal-hot-example/tree/heroku).
+A demonstration of this app can be seen [running on heroku](https://cerebral-app.herokuapp.com).
 
 ## Documentation
 
@@ -209,14 +209,6 @@ After:
 
 After this modification to both loaders you will be able to use scss and less files in the same way as css files.
 
-#### Unit Tests
-
-The project uses [Mocha](https://mochajs.org/) to run your unit tests, it uses [Karma](http://karma-runner.github.io/0.13/index.html) as the test runner, it enables the feature that you are able to render your tests to the browser (e.g: Firefox, Chrome etc.), which means you are able to use the [Test Utilities](http://facebook.github.io/react/docs/test-utils.html) from Facebook api like `renderIntoDocument()`.
-
-To run the tests in the project, just simply run `npm test` if you have `Chrome` installed, it will be automatically launched as a test service for you.
-
-To keep watching your test suites that you are working on, just set `singleRun: false` in the `karma.conf.js` file. Please be sure set it to `true` if you are running `npm test` on a continuous integration server (travis-ci, etc).
-
 ## Deployment on Heroku
 
 To get this project to work on Heroku, you need to:
@@ -229,22 +221,13 @@ To get this project to work on Heroku, you need to:
 
 The first deploy might take a while, but after that your `node_modules` dir should be cached.
 
-## FAQ
+## Inspiration
 
-This project moves fast and has an active community, so if you have a question that is not answered below please visit our [Discord channel](https://discord.gg/0ZcbPKXt5bZZb1Ko) or file an issue.
+This project is using boilerplate from this project [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example) created by [@erikras](https://twitter.com/erikras)
 
+Big thanks to [@erikras](https://twitter.com/erikras) for the awesome boilerplate.
 
-## Roadmap 
-
-Although this isn't a library, we recently started versioning to make it easier to track breaking changes and emerging best practices. 
-
-* [Inline Styles](docs/InlineStyles.md) - CSS is dead
-
-## Contributing
-
-I am more than happy to accept external contributions to the project in the form of feedback, bug reports and even better - pull requests :) 
-
-If you would like to submit a pull request, please make an effort to follow the guide in [CONTRIBUTING.md](CONTRIBUTING.md). 
+Checkout more awesome projects from [@erikras](https://twitter.com/erikras) by visiting his github profile --> https://github.com/erikras
  
 ---
 Thanks for checking this out.
