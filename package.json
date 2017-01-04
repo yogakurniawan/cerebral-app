@@ -42,7 +42,7 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
-        "APIHOST": "http://54.254.154.139:9000"
+        "APIHOST": "http://52.221.230.61:9000"
       }
     },
     "start-prod-api": {
@@ -50,7 +50,7 @@
       "env": {
         "NODE_PATH": "./api",
         "NODE_ENV": "production",
-        "APIHOST": "http://54.254.154.139:9000"
+        "APIHOST": "http://52.221.230.61:9000"
       }
     },
     "start-dev": {
@@ -59,7 +59,7 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "development",
         "PORT": 3000,
-        "APIHOST": "http://54.254.154.139:9000"
+        "APIHOST": "http://52.221.230.61:9000"
       }
     },
     "start-dev-api": {
@@ -67,7 +67,7 @@
       "env": {
         "NODE_PATH": "./api",
         "NODE_ENV": "development",
-        "APIHOST": "http://54.254.154.139:9000"
+        "APIHOST": "http://52.221.230.61:9000"
       }
     },
     "watch-client": {
