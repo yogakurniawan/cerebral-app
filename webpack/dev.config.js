@@ -105,7 +105,7 @@ module.exports = {
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
     new webpack.DefinePlugin({
       'process.env': {
-        APIHOST: '"http://52.221.230.61:9000"'
+        APIHOST: '"http://52.63.43.213:9000"'
       },
       __CLIENT__: true,
       __SERVER__: false,
